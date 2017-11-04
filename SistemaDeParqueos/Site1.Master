@@ -1,0 +1,159 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="Site1.master.vb" Inherits="SistemaDeParqueos.Site1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Sistema de Parqueos - OIJ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Cognate Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+	Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link href="public/css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="public/css/style.css" rel='stylesheet' type='text/css' />
+    <script src="../public/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../public/js/bootstrap.js"></script>
+    <link href='//fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Cabin:400,700,500,600' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Pacifico|Prata' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="images/png" href="public/images/placa.png">
+    <script src="../public/js/main.js"></script>
+    <link href="public/css/animate.min.css" rel="stylesheet">
+    <script src="../public/js/wow.min.js"></script>
+    <script src="../public/js/sweetalert2.all.min.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server" novalidate>
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+        </asp:ScriptManager>
+        <div>
+
+            <div class="top-bar w3agile-1" id="home">
+                <div class="container">
+                    <div class="row">
+                        <nav class="navbar navbar-default">
+                            <div class="navbar-header wow fadeInLeft animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;">
+                                <a href="frm_index.aspx">
+                                    <img src="../public/images/placa.png" alt=" " /></a>
+                            </div>
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1 wow fadeInRight animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+                                <%
+                If String.Equals(Session("Usuario"), "a") Then
+                                %>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <asp:HyperLink ID="HypLnkSolicitudes" Style="color: #efd12f" NavigateUrl="http://localhost:52086/view/frm_AdministrarSolicitudes.aspx?id=0" Text="Pendientes: " runat="server" />
+                                </ul>
+                                <%
+                End If
+                                %>
+                                <br>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <%
+                If String.Equals(Session("Usuario"), "N") Then
+                                    %>
+                                    <li><a href="frm_IniciarSesion.aspx">Iniciar Sesión</a></li>
+                                    <li><a href="frm_RegistrarVisitante.aspx">Registrarse</a></li>
+                                    <%
+                ElseIf String.Equals(Session("Usuario"), "v") Then
+                                    %>
+                                    <li><a href="frm_SolicitarParqueo.aspx">Solicitar parqueo</a></li>
+                                    <li><a href="#" runat="server" onserverclick="cerrarSesion">Cerrar sesión</a></li>
+                                    <%
+                ElseIf String.Equals(Session("Usuario"), "a") Then
+                                    %>
+                                    <li><a href="frm_VerParqueo.aspx">Ver parqueo</a></li>
+                                    <li><a href="frm_AdministrarParqueo.aspx">Administrar parqueo</a></li>
+                                    <li><a href="frm_AdministrarSolicitudes.aspx?id=0">Administrar solicitudes</a></li>
+                                    <li><a href="frm_RegistrarUsuario.aspx">Registrar usuarios</a></li>
+                                    <li><a href="frm_Reporte.aspx">Reportes</a></li>
+                                    <li><a href="#" runat="server" onserverclick="cerrarSesion">Cerrar sesión</a></li>
+                                    <%
+                ElseIf String.Equals(Session("Usuario"), "o") Then
+                                    %>
+                                    <li><a href="frm_ListaVisitantes.aspx">Lista visitantes</a></li>
+                                    <li><a href="frm_BrindarAcceso.aspx">Brindar parqueo</a></li>
+                                    <li><a href="#" runat="server" onserverclick="cerrarSesion">Cerrar sesión</a></li>
+                                    <%
+                End If
+                                    %>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </nav>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+            <footer>
+                <p class="copy-right wow fadeInUp animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">Organismo de Investigaci&oacute;n Judicial - Poder Judicial - San Jos&eacute; - Costa Rica- Copyright ©</p>
+                <br>
+                <br>
+            </footer>
+
+            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content modal-info">
+                        <div class="top-bar w3agile-1" id="home">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <nav class="navbar navbar-default">
+                                        <div class="navbar-header wow fadeInLeft animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;">
+                                            <a href="frm_index.aspx" style="margin-left: 30%;">
+                                                <img src="../public/images/placa.png" alt=" " /></a>
+                                        </div>
+                                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1 wow fadeInRight animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+                                            <br />
+                                            <br />
+                                            <h1>Ver Parqueo</h1>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </nav>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="newsletter wow fadeInUp animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+                                <div class="container">
+                                    <asp:UpdatePanel ID="UpdatePanel2" runat="server" Visible="true">
+                                        <ContentTemplate>
+                                            <asp:Label ID="lblFecha" runat="server" Style="margin-left: 0%;" Text="Fecha:"></asp:Label>
+                                            <asp:TextBox ID="tbFechaI" type="date" required="" runat="server" Style="width: 13%;"></asp:TextBox>
+                                            <asp:Label ID="lblDesde" runat="server" Style="margin-left: 18%;" Text="Desde:"></asp:Label>
+                                            <asp:TextBox ID="tbHoraI" TextMode="Time" required="" runat="server" Style="margin-left: 2%; width: 13%;"></asp:TextBox>
+                                            <asp:Label ID="lblHasta" runat="server" Style="margin-left: 11%;" Text="Hasta:"></asp:Label>
+                                            <asp:TextBox ID="tbHoraF" TextMode="Time" required="" runat="server" Style="width: 13%;"></asp:TextBox>
+                                            <asp:Button ID="btnBuscarP" runat="server" Style="margin-left: 43%; width: 15%;" Text="Ver" OnClick="llenarTabla" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                    <div class="page w3-4">
+                                        <div class="bs-example " data-example-id="simple-table">
+                                            <asp:Table ID="table" runat="server" CssClass="table">
+                                            </asp:Table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <footer>
+                            <p class="copy-right wow fadeInUp animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">Organismo de Investigaci&oacute;n Judicial - Poder Judicial - San Jos&eacute; - Costa Rica- Copyright ©</p>
+                            <br />
+                            <br />
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
