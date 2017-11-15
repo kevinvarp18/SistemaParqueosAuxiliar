@@ -11,59 +11,59 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class Site1
+Partial Public Class frm_ManejarPermisos
     
     '''<summary>
-    '''head control.
+    '''UpdatePanel1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents head As Global.System.Web.UI.WebControls.ContentPlaceHolder
+    Protected WithEvents UpdatePanel1 As Global.System.Web.UI.UpdatePanel
     
     '''<summary>
-    '''form1 control.
+    '''tabla control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents form1 As Global.System.Web.UI.HtmlControls.HtmlForm
+    Protected WithEvents tabla As Global.System.Web.UI.WebControls.Table
     
     '''<summary>
-    '''ScriptManager1 control.
+    '''DwnLstPermisos control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ScriptManager1 As Global.System.Web.UI.ScriptManager
+    Protected WithEvents DwnLstPermisos As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''HypLnkSolicitudes control.
+    '''DwnLstRoles control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents HypLnkSolicitudes As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents DwnLstRoles As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''HypLinkVisitantes control.
+    '''btnAgregar control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents HypLinkVisitantes As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents btnAgregar As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''ContentPlaceHolder1 control.
+    '''btnEliminar control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ContentPlaceHolder1 As Global.System.Web.UI.WebControls.ContentPlaceHolder
+    Protected WithEvents btnEliminar As Global.System.Web.UI.WebControls.Button
 End Class

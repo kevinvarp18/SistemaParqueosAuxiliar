@@ -83,6 +83,8 @@
     </Compile>
     <Compile Include="Oficial.vb" />
     <Compile Include="Parqueo.vb" />
+    <Compile Include="Permiso.vb" />
+    <Compile Include="RolYPermiso.vb" />
     <Compile Include="Solicitud.vb" />
     <Compile Include="Solicitud_Visitante.vb" />
     <Compile Include="Tipoid.vb" />

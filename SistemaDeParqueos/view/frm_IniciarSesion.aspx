@@ -12,7 +12,7 @@
                     <asp:TextBox ID="tbUsuario" type="email" Style="margin-left: 4.9%;" runat="server"></asp:TextBox><br />
                     <asp:Label ID="lblContrasena" runat="server" Text="Contraseña:"></asp:Label>
                     <asp:TextBox ID="tbContrasena" type="password" runat="server"></asp:TextBox><br />
-                    <asp:LinkButton ID="lblRecordar" Style="margin-left: 42%;" runat="server" OnClientClick="enviarCorreo">¿Olvidaste la contraseña?</asp:LinkButton>
+                    <asp:LinkButton ID="lblRecordar" Style="margin-left: 42%;" runat="server" OnClick="enviarCorreo">¿Olvidaste la contraseña?</asp:LinkButton>
                     <br />
                     <asp:Button ID="btnIngresar" runat="server" CssClass="singleTextBox" OnClick="btnIngresar_Click" Text="Ingresar" />
                     <br />

@@ -45,6 +45,10 @@
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp, Version=5.5.12.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.12\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -128,10 +132,12 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="view\frm_SolicitudesAtrasadas.aspx" />
     <Content Include="public\js\script.js" />
     <Content Include="view\frm_AdministrarSolicitudes.aspx" />
-    <Content Include="view\frm_BrindarAcceso.aspx" />
+    <Content Include="view\frm_BrindarParqueo.aspx" />
     <Content Include="view\frm_ListaVisitantes.aspx" />
+    <Content Include="view\frm_ManejarPermisos.aspx" />
     <Content Include="view\frm_RegistrarUsuario.aspx" />
     <Content Include="view\frm_Reporte.aspx" />
     <Content Include="view\frm_SolicitarParqueo.aspx" />
@@ -143,6 +149,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="view\frm_SolicitudesAtrasadas.aspx.designer.vb">
+      <DependentUpon>frm_SolicitudesAtrasadas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\frm_SolicitudesAtrasadas.aspx.vb">
+      <DependentUpon>frm_SolicitudesAtrasadas.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="view\frm_AdministrarSolicitudes.aspx.designer.vb">
       <DependentUpon>frm_AdministrarSolicitudes.aspx</DependentUpon>
     </Compile>
@@ -150,18 +163,25 @@
       <DependentUpon>frm_AdministrarSolicitudes.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="view\frm_BrindarAcceso.aspx.designer.vb">
-      <DependentUpon>frm_BrindarAcceso.aspx</DependentUpon>
+    <Compile Include="view\frm_BrindarParqueo.aspx.designer.vb">
+      <DependentUpon>frm_BrindarParqueo.aspx</DependentUpon>
     </Compile>
-    <Compile Include="view\frm_BrindarAcceso.aspx.vb">
-      <DependentUpon>frm_BrindarAcceso.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+    <Compile Include="view\frm_BrindarParqueo.aspx.vb">
+      <DependentUpon>frm_BrindarParqueo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="view\frm_ListaVisitantes.aspx.designer.vb">
       <DependentUpon>frm_ListaVisitantes.aspx</DependentUpon>
     </Compile>
     <Compile Include="view\frm_ListaVisitantes.aspx.vb">
       <DependentUpon>frm_ListaVisitantes.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="view\frm_ManejarPermisos.aspx.designer.vb">
+      <DependentUpon>frm_ManejarPermisos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\frm_ManejarPermisos.aspx.vb">
+      <DependentUpon>frm_ManejarPermisos.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="view\frm_RegistrarUsuario.aspx.designer.vb">

@@ -23,24 +23,6 @@ Partial Public Class administrarParqueo
     Protected WithEvents UpdatePanel1 As Global.System.Web.UI.UpdatePanel
     
     '''<summary>
-    '''lblNumEspacio control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblNumEspacio As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''DwnEspacio control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents DwnEspacio As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
     '''lblTipo control.
     '''</summary>
     '''<remarks>
@@ -77,13 +59,22 @@ Partial Public Class administrarParqueo
     Protected WithEvents DwnLstEstado As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''btnCrear control.
+    '''lblMensaje control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnCrear As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents lblMensaje As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''UpdatePanel2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel2 As Global.System.Web.UI.UpdatePanel
     
     '''<summary>
     '''btnActualizar control.
@@ -104,11 +95,20 @@ Partial Public Class administrarParqueo
     Protected WithEvents btnEliminar As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''lblMensaje control.
+    '''UpdatePanel3 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblMensaje As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents UpdatePanel3 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''btnCrear control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnCrear As Global.System.Web.UI.WebControls.Button
 End Class

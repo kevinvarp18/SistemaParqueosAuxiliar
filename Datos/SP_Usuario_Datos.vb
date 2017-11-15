@@ -14,7 +14,7 @@ Public Class SP_Usuario_Datos
     'NOMBRE DEL DESARROLLADOR:                       Dylan Zamora
     '
     'FECHA DE CREACIÓN                               05-Octubre-2017
-    'FECHA DE ULTIMA ACTUALIZACIÓN:                  04-Noviembre-2017
+    'FECHA DE ULTIMA ACTUALIZACIÓN:                  13-Noviembre-2017
     '******************************************************************
     'Declaracion de Varaiables.
     Public gstrconnString As String
@@ -65,8 +65,7 @@ Public Class SP_Usuario_Datos
         cmdInsert.Connection.Close()
         Return result
     End Function
-
-    Public Function insertarVisitante(visitante As Visitante) As Boolean
+    Public Function insertarVisitante(visitante As Visitante) As Integer
         Dim connection As New SqlConnection(Me.gstrconnString)
         Dim sqlStoredProcedure As [String] = "PA_RegistrarVisitante"
         Dim cmdInsert As New SqlCommand(sqlStoredProcedure, connection)
@@ -89,8 +88,108 @@ Public Class SP_Usuario_Datos
         cmdInsert.Connection.Close()
         Return result
     End Function
+    Public Function insertarPermisoRol(id_permiso As Integer, rol As String) As Boolean
+        Dim connection As New SqlConnection(Me.gstrconnString)
+        Dim sqlStoredProcedure As [String] = "PA_InsertarPermisoRol"
+        Dim cmdInsert As New SqlCommand(sqlStoredProcedure, connection)
+        Dim result As Integer
+        cmdInsert.CommandType = System.Data.CommandType.StoredProcedure
+        cmdInsert.Parameters.Add(New SqlParameter("@id_permiso", id_permiso))
+        cmdInsert.Parameters.Add(New SqlParameter("@rol", rol))
+        cmdInsert.Parameters.Add("@resultado", SqlDbType.Int).Direction = ParameterDirection.Output
+        cmdInsert.Connection.Open()
+        cmdInsert.ExecuteNonQuery()
+        result = Convert.ToInt32(cmdInsert.Parameters("@resultado").Value)
+        cmdInsert.Connection.Close()
+        Return result
+    End Function
+    Public Function eliminarPermisoRol(id_permiso As Integer, rol As String) As Boolean
+        Dim connection As New SqlConnection(Me.gstrconnString)
+        Dim sqlStoredProcedure As [String] = "PA_EliminarPermisoRol"
+        Dim cmdInsert As New SqlCommand(sqlStoredProcedure, connection)
+        Dim result As Boolean
 
-    Public Function obtenerUsuarios(correo As String, contrasenna As String) As LinkedList(Of Usuario)
+        cmdInsert.CommandType = System.Data.CommandType.StoredProcedure
+
+        cmdInsert.Parameters.Add(New SqlParameter("@id_permiso", id_permiso))
+        cmdInsert.Parameters.Add(New SqlParameter("@rol", rol))
+        cmdInsert.Parameters.Add(New SqlParameter("@resultado", 1))
+        cmdInsert.Connection.Open()
+        cmdInsert.ExecuteNonQuery()
+
+        result = cmdInsert.Parameters("@resultado").Value
+        cmdInsert.Connection.Close()
+
+        Return result
+    End Function
+    Public Function obtenerPermisosPorRol(rol As String) As LinkedList(Of Permiso)
+        Dim connection As New SqlConnection(Me.gstrconnString)
+        Dim sqlSelect As String = "PA_ObtenerPermisosRol"
+        Dim sqlDataAdapterClient As New SqlDataAdapter()
+        sqlDataAdapterClient.SelectCommand = New SqlCommand()
+        sqlDataAdapterClient.SelectCommand.CommandText = sqlSelect
+        sqlDataAdapterClient.SelectCommand.Connection = connection
+        sqlDataAdapterClient.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure
+        sqlDataAdapterClient.SelectCommand.Parameters.Add(New SqlParameter("@rol", rol))
+        Dim dataSetAttendant As New DataSet()
+        sqlDataAdapterClient.Fill(dataSetAttendant, "SP.TSP_Permiso")
+        sqlDataAdapterClient.SelectCommand.Connection.Close()
+        Dim dataRowCollection As DataRowCollection = dataSetAttendant.Tables("SP.TSP_Permiso").Rows
+        Dim permisos As New LinkedList(Of Permiso)()
+
+        For Each currentRow As DataRow In dataRowCollection
+            Dim permisoActual As New Permiso()
+            permisoActual.GintIdentificador1 = Int(currentRow("TN_Id_TSP_Permiso"))
+            permisoActual.GstrTipo1 = currentRow("TC_Tipo_TSP_Permiso").ToString()
+            permisos.AddLast(permisoActual)
+        Next
+        Return permisos
+    End Function
+    Public Function ObtenerPermisos() As LinkedList(Of Permiso)
+        Dim connection As New SqlConnection(Me.gstrconnString)
+        Dim sqlSelect As String = "PA_ObtenerPermisos"
+        Dim sqlDataAdapterClient As New SqlDataAdapter()
+        sqlDataAdapterClient.SelectCommand = New SqlCommand()
+        sqlDataAdapterClient.SelectCommand.CommandText = sqlSelect
+        sqlDataAdapterClient.SelectCommand.Connection = connection
+        sqlDataAdapterClient.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure
+        Dim dataSetAttendant As New DataSet()
+        sqlDataAdapterClient.Fill(dataSetAttendant, "SP.TSP_Permiso")
+        sqlDataAdapterClient.SelectCommand.Connection.Close()
+        Dim dataRowCollection As DataRowCollection = dataSetAttendant.Tables("SP.TSP_Permiso").Rows
+        Dim permisos As New LinkedList(Of Permiso)()
+
+        For Each currentRow As DataRow In dataRowCollection
+            Dim permiso As New Permiso()
+            permiso.GintIdentificador1 = currentRow("TN_Id_TSP_Permiso")
+            permiso.GstrTipo1 = currentRow("TC_Tipo_TSP_Permiso")
+            permisos.AddLast(permiso)
+        Next
+        Return permisos
+    End Function
+    Public Function ObtenerRolesYPermisos() As LinkedList(Of RolYPermiso)
+        Dim connection As New SqlConnection(Me.gstrconnString)
+        Dim sqlSelect As String = "PA_ObtenerRolesYPermisos"
+        Dim sqlDataAdapterClient As New SqlDataAdapter()
+        sqlDataAdapterClient.SelectCommand = New SqlCommand()
+        sqlDataAdapterClient.SelectCommand.CommandText = sqlSelect
+        sqlDataAdapterClient.SelectCommand.Connection = connection
+        sqlDataAdapterClient.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure
+        Dim dataSetAttendant As New DataSet()
+        sqlDataAdapterClient.Fill(dataSetAttendant, "SP.TSP_Permiso")
+        sqlDataAdapterClient.SelectCommand.Connection.Close()
+        Dim dataRowCollection As DataRowCollection = dataSetAttendant.Tables("SP.TSP_Permiso").Rows
+        Dim permisos As New LinkedList(Of RolYPermiso)()
+
+        For Each currentRow As DataRow In dataRowCollection
+            Dim permiso As New RolYPermiso()
+            permiso.GstrPermiso1 = currentRow("TC_Tipo_TSP_Permiso")
+            permiso.GstrRol1 = currentRow("TC_Rol_TSP_Permiso_X_Rol")
+            permisos.AddLast(permiso)
+        Next
+        Return permisos
+    End Function
+    Public Function obtenerUsuarios(correo As String) As LinkedList(Of Usuario)
         Dim connection As New SqlConnection(Me.gstrconnString)
         Dim sqlSelect As String = "PA_ObtenerUsuarios"
         Dim sqlDataAdapterClient As New SqlDataAdapter()
@@ -99,7 +198,6 @@ Public Class SP_Usuario_Datos
         sqlDataAdapterClient.SelectCommand.Connection = connection
         sqlDataAdapterClient.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure
         sqlDataAdapterClient.SelectCommand.Parameters.Add(New SqlParameter("@correo", correo))
-        sqlDataAdapterClient.SelectCommand.Parameters.Add(New SqlParameter("@contrasena", contrasenna))
         Dim dataSetAttendant As New DataSet()
         sqlDataAdapterClient.Fill(dataSetAttendant, "SP.TSP_Usuario")
         sqlDataAdapterClient.SelectCommand.Connection.Close()
@@ -117,7 +215,6 @@ Public Class SP_Usuario_Datos
         Next
         Return usuarios
     End Function
-
     Public Function obtenerCorreosUsuarios(strcorreo As String) As LinkedList(Of Usuario)
         Dim connection As New SqlConnection(Me.gstrconnString)
         Dim sqlSelect As String = "PA_VerCorreosExistentes"
@@ -144,9 +241,7 @@ Public Class SP_Usuario_Datos
         Next
         Return usuarios
     End Function
-
-    Public Function EnvioMail(strCorreo As String) As Boolean
-
+    Public Function recuperacionContrasenaMail(strCorreo As String) As Boolean
         Dim correo As New MailMessage
         Dim smtp As New SmtpClient()
 
@@ -181,7 +276,6 @@ Public Class SP_Usuario_Datos
 
         Return blnExite
     End Function
-
     Public Function obtenerCorreoUsuariosVisitantes() As LinkedList(Of Usuario)
         Dim connection As New SqlConnection(Me.gstrconnString)
         Dim sqlSelect As [String] = "PA_Vercorreos;"
@@ -203,5 +297,53 @@ Public Class SP_Usuario_Datos
         Next
         Return usuarios
     End Function
+    Public Function obtenerPlacas() As LinkedList(Of String)
+        Dim connection As New SqlConnection(Me.gstrconnString)
+        Dim sqlSelect As [String] = "PA_VerPlacas;"
+
+        Dim sqlDataAdapterClient As New SqlDataAdapter()
+        sqlDataAdapterClient.SelectCommand = New SqlCommand()
+        sqlDataAdapterClient.SelectCommand.CommandText = sqlSelect
+        sqlDataAdapterClient.SelectCommand.Connection = connection
+        Dim dataSetAttendant As New DataSet()
+        sqlDataAdapterClient.Fill(dataSetAttendant, "[TSP_Solicitud]")
+        sqlDataAdapterClient.SelectCommand.Connection.Close()
+        Dim dataRowCollection As DataRowCollection = dataSetAttendant.Tables("[TSP_Solicitud]").Rows
+        Dim placas As New LinkedList(Of String)()
+
+        For Each currentRow As DataRow In dataRowCollection
+            placas.AddLast(currentRow("TC_Placa_TSP_Solicitud").ToString())
+        Next
+        Return placas
+    End Function
+    Public Sub envioRespuestaSolicitud(strAsunto As String, strCorreo As String, strMensaje As String)
+        Dim correo As New MailMessage
+        Dim smtp As New SmtpClient()
+
+        Dim usuarios As New LinkedList(Of Usuario)
+        usuarios = obtenerCorreosUsuarios(strCorreo)
+
+        If (usuarios.Count > 0) Then
+            For Each usuarioActual As Usuario In usuarios
+                correo.From = New MailAddress("sistemaparqueosoij@gmail.com", "Sistema Parqueos OIJ", System.Text.Encoding.UTF8)
+                correo.[To].Add(usuarioActual.gstrCorreo)
+                correo.SubjectEncoding = System.Text.Encoding.UTF8
+                correo.Subject = strAsunto
+                correo.Body = Convert.ToString("Hola " + usuarioActual.gstrNombre + " " + usuarioActual.gstrApellido + "." + strMensaje)
+                correo.BodyEncoding = System.Text.Encoding.UTF8
+                correo.IsBodyHtml = (True)
+                correo.Priority = MailPriority.High
+                smtp.Credentials = New System.Net.NetworkCredential("sistemaparqueosoij@gmail.com", "OIJ.SistemaParqueos")
+                smtp.Port = 587
+                smtp.Host = "smtp.gmail.com"
+                smtp.EnableSsl = True
+
+                Try
+                    smtp.Send(correo)
+                Catch
+                End Try
+            Next
+        End If
+    End Sub
 
 End Class

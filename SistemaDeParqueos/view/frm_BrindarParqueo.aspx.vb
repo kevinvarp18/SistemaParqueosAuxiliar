@@ -7,7 +7,15 @@ Public Class frm_BrindarAcceso
 
     Public gstrUsuarioSelecion As String
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        If String.Equals(Session("Usuario"), "o") Then
+        Dim permitido As Boolean = False
+
+        For Each variableSesion As String In Session.Keys
+            If (String.Equals(variableSesion, "frm_BrindarParqueo")) Then
+                permitido = True
+            End If
+        Next
+
+        If (permitido) Then
             Dim connectionString As String = WebConfigurationManager.ConnectionStrings("DBOIJ").ToString()
             ScriptManager.RegisterClientScriptInclude(Me, Me.GetType(), "frm_BrindarAcceso", ResolveUrl("~") + "public/js/" + "script.js")
 
@@ -29,8 +37,9 @@ Public Class frm_BrindarAcceso
                 Next
             End If
         Else
+            Dim url As String = HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.AbsolutePath, "")
             Response.BufferOutput = True
-            Response.Redirect("http://localhost:52086/view/frm_index.aspx")
+            Response.Redirect(url & Convert.ToString("/view/frm_index.aspx"))
         End If
 
     End Sub

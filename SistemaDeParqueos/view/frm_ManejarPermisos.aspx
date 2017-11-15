@@ -1,0 +1,37 @@
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site1.Master" CodeBehind="frm_ManejarPermisos.aspx.vb" Inherits="SistemaDeParqueos.frm_ManejarPermisos" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="newsletter wow fadeInUp animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+        <div class="container">
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server" Visible="true">
+                <ContentTemplate>
+                    <h3>Permisos y Roles</h3>
+                    <div class="page w3-4">
+                        <div class="bs-example " data-example-id="simple-table">
+                            <div class="botonTabla">
+                                <asp:Table ID="tabla" Style="margin-left: -2%;" runat="server" CssClass="table">
+                                    <asp:TableHeaderRow>
+                                        <asp:TableHeaderCell>Permiso</asp:TableHeaderCell>
+                                        <asp:TableHeaderCell>Rol</asp:TableHeaderCell>
+                                    </asp:TableHeaderRow>
+                                </asp:Table>
+                            </div>
+                        </div>
+                        <br />
+                        <h3>Agregar o Eliminar Permisos a un Rol</h3>
+                        <br />
+                        <center>
+                        <asp:DropDownList ID="DwnLstPermisos" runat="server" Style="margin-left: 3%; width: 27%;" AutoPostBack="false"></asp:DropDownList><br />
+                        <asp:DropDownList ID="DwnLstRoles" runat="server" Style="margin-left: 3%; width: 27%;" AutoPostBack="false"></asp:DropDownList><br />
+                        
+                        <asp:Button ID="btnAgregar" runat="server" CssClass="multipleTextBox" style="margin-left: -2.5%;" OnClick="btnAgregar_Click" Text="Agregar" />
+                        <asp:Button ID="btnEliminar" runat="server" CssClass="multipleTextBox" OnClick="btnEliminar_Click" Text="Eliminar" /><br />
+                        </center>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+    </div>
+</asp:Content>

@@ -12,11 +12,21 @@ Public Class frm_ListaVisitantes
         Me.strConnectionString = WebConfigurationManager.ConnectionStrings("DBOIJ").ToString()
         Me.solicitudNegocios = New SP_Solicitud_Parqueo_Negocios(Me.strConnectionString)
 
-        If String.Equals(Session("Usuario"), "o") Then
+        Dim permitido As Boolean = False
+
+        For Each variableSesion As String In Session.Keys
+            If (String.Equals(variableSesion, "frm_ListaVisitantes")) Then
+                permitido = True
+            End If
+        Next
+
+        If (permitido) Then
+
             llenarTabla()
         Else
+            Dim url As String = HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.AbsolutePath, "")
             Response.BufferOutput = True
-            Response.Redirect("http://localhost:52086/view/frm_index.aspx")
+            Response.Redirect(url & Convert.ToString("/view/frm_index.aspx"))
         End If
     End Sub
 
@@ -52,20 +62,36 @@ Public Class frm_ListaVisitantes
                 literalControl.Text = ""
                 columnaHypLnk.Controls.Add(literalControl)
 
-                Dim lnkMarcarEntrada As New HyperLink()
-                lnkMarcarEntrada.Text = "(Marcar Entrada)"
-                lnkMarcarEntrada.NavigateUrl = "http://localhost:52086/view/frm_ListaVisitantes.aspx?id=1;" + contador.ToString() + ";" + solicitudAct.GstrMarcaSG + ";" + solicitudAct.GstrPlacaSG + ";" + solicitudAct.GstrModeloSG + ";" + solicitudAct.GstrHoraISG + ";" + solicitudAct.GstrHoraFSG + ";1"
-                lnkMarcarEntrada.Style("font-weight") = "bold"
-                lnkMarcarEntrada.Style("color") = "#0000ff"
+                Dim btnMarcarEntrada As New Button()
+                If (solicitudAct.GintIdSolicutudSG = 0) Then
+                    btnMarcarEntrada.Text = "Marcar Entrada"
+                    btnMarcarEntrada.Style("font-size") = "0.70em"
+                Else
+                    btnMarcarEntrada.Text = "Desmarcar Entrada"
+                    btnMarcarEntrada.Style("font-size") = "0.60em"
+                End If
+                btnMarcarEntrada.Width = 100%
+                btnMarcarEntrada.CssClass = solicitudAct.GstrMarcaSG + ";" + solicitudAct.GstrPlacaSG + ";" + solicitudAct.GstrModeloSG + ";" + solicitudAct.GintIdParqueoSG.ToString() + ";" + solicitudAct.GstrHoraISG + ";" + solicitudAct.GstrHoraFSG + ";1"
+                btnMarcarEntrada.Style("color") = "#ff0000"
 
-                Dim lnkMarcarSalida As New HyperLink()
-                lnkMarcarSalida.Text = "(Marcar Salida)"
-                lnkMarcarSalida.NavigateUrl = "http://localhost:52086/view/frm_ListaVisitantes.aspx?id=1;" + contador.ToString() + ";" + solicitudAct.GstrMarcaSG + ";" + solicitudAct.GstrPlacaSG + ";" + solicitudAct.GstrModeloSG + ";" + solicitudAct.GstrHoraISG + ";" + solicitudAct.GstrHoraFSG + ";0"
-                lnkMarcarSalida.Style("font-weight") = "bold"
-                lnkMarcarSalida.Style("color") = "#0000ff"
+                AddHandler btnMarcarEntrada.Click, AddressOf Me.button_Click
 
-                columnaHypLnk.Controls.Add(lnkMarcarEntrada)
-                columnaHypLnk.Controls.Add(lnkMarcarSalida)
+                Dim btnMarcarSalida As New Button()
+                If (solicitudAct.GintIdVisitanteSG = 0) Then
+                    btnMarcarSalida.Text = "Marcar Salida"
+                    btnMarcarSalida.Style("font-size") = "0.70em"
+                Else
+                    btnMarcarSalida.Text = "Desmarcar Salida"
+                    btnMarcarSalida.Style("font-size") = "0.60em"
+                End If
+                btnMarcarSalida.Width = 100%
+                btnMarcarSalida.CssClass = solicitudAct.GstrMarcaSG + ";" + solicitudAct.GstrPlacaSG + ";" + solicitudAct.GstrModeloSG + ";" + solicitudAct.GintIdParqueoSG.ToString() + ";" + solicitudAct.GstrHoraISG + ";" + solicitudAct.GstrHoraFSG + ";0"
+                btnMarcarSalida.Style("color") = "#00fe00"
+                btnMarcarSalida.Style("font-size") = "0.70em"
+                AddHandler btnMarcarSalida.Click, AddressOf Me.button_Click
+
+                columnaHypLnk.Controls.Add(btnMarcarEntrada)
+                columnaHypLnk.Controls.Add(btnMarcarSalida)
 
                 filaTabla.Cells.Add(columnaNombre)
                 filaTabla.Cells.Add(columnaMarca)
@@ -80,6 +106,26 @@ Public Class frm_ListaVisitantes
                 contador = contador + 1
             Next
         Next
+    End Sub
+
+    Protected Sub button_Click(ByVal sender As Object, ByVal e As EventArgs)
+        Dim botonSeleccionado As Button = CType(sender, Button)
+        Dim datosSolictud As String() = botonSeleccionado.CssClass.Split(New String() {";"}, StringSplitOptions.None)
+        solicitudNegocios.marcarEntrada_Salida(datosSolictud(0), datosSolictud(1), datosSolictud(2), Integer.Parse(datosSolictud(3)), datosSolictud(4), datosSolictud(5), Integer.Parse(datosSolictud(6)))
+
+        If (botonSeleccionado.Text.Equals("Marcar Entrada")) Then
+            botonSeleccionado.Text = "Desmarcar Entrada"
+            botonSeleccionado.Style("font-size") = "0.60em"
+        ElseIf (botonSeleccionado.Text.Equals("Desmarcar Entrada")) Then
+            botonSeleccionado.Text = "Marcar Entrada"
+            botonSeleccionado.Style("font-size") = "0.70em"
+        ElseIf (botonSeleccionado.Text.Equals("Marcar Salida")) Then
+            botonSeleccionado.Text = "Desmarcar Salida"
+            botonSeleccionado.Style("font-size") = "0.60em"
+        ElseIf (botonSeleccionado.Text.Equals("Desmarcar Salida")) Then
+            botonSeleccionado.Style("font-size") = "0.70em"
+            botonSeleccionado.Text = "Marcar Salida"
+        End If
     End Sub
 
 End Class

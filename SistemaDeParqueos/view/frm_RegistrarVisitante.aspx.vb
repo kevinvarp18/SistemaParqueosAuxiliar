@@ -11,26 +11,40 @@ Public Class registrarVisitante
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If String.Equals(Session("Usuario"), "N") Then
             Me.connectionString = WebConfigurationManager.ConnectionStrings("DBOIJ").ToString()
-
             ScriptManager.RegisterClientScriptInclude(Me, Me.GetType(), "frm_RegistrarVisitante", ResolveUrl("~") + "public/js/" + "script.js")
-
             Me.usuarioNegocios = New SP_Usuario_Negocios(connectionString)
 
             If Not IsPostBack Then
-
                 DwnLstProcedencia.Items.Add("Seleccione una opción")
                 DwnLstProcedencia.Items.Add("Externo")
                 DwnLstProcedencia.Items.Add("Interno")
 
                 DwnLstTipoIdentificacion.Items.Add("Seleccione una opción")
-                DwnLstTipoIdentificacion.Items.Add("Cédula")
+                DwnLstTipoIdentificacion.Items.Add("Numero de Cedula")
                 DwnLstTipoIdentificacion.Items.Add("Pasaporte")
                 DwnLstTipoIdentificacion.Items.Add("Licencia de conducir")
-            End If
+            Else
+                Dim contentPlaceHolder As ContentPlaceHolder
+                Dim updatePanel As UpdatePanel
+                contentPlaceHolder = DirectCast(Page.Master.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
+                updatePanel = DirectCast(contentPlaceHolder.FindControl("UpdatePanel2"), UpdatePanel)
 
+                If (DwnLstProcedencia.SelectedItem.ToString().Equals("Seleccione una opción")) Then
+                    updatePanel.Visible = False
+                ElseIf (DwnLstProcedencia.SelectedItem.ToString().Equals("Interno")) Then
+                    updatePanel.Visible = True
+                    lblProcedenciatb.Text = "Nombre Dept:"
+                    tbProcedencia.Style("margin-left") = "3.9%"
+                Else
+                    updatePanel.Visible = True
+                    lblProcedenciatb.Text = "Institución:"
+                    tbProcedencia.Style("margin-left") = "5.7%"
+                End If
+            End If
         Else
+            Dim url As String = HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.AbsolutePath, "")
             Response.BufferOutput = True
-            Response.Redirect("http://localhost:52086/view/frm_index.aspx")
+            Response.Redirect(url & Convert.ToString("/view/frm_index.aspx"))
         End If
     End Sub
 
@@ -67,13 +81,30 @@ Public Class registrarVisitante
                 tipoVisitante = "Interno"
             End If
 
-            Me.usuarioNegocios.insertarVisitante(New Visitante(tbIdentificacion.Text, tbNombre.Text, tbApellidos.Text, tbEmail.Text,
+            Dim resultado As Integer = Me.usuarioNegocios.insertarVisitante(New Visitante(tbIdentificacion.Text, tbNombre.Text, tbApellidos.Text, tbEmail.Text,
             tbContrasena.Text, DwnLstTipoIdentificacion.SelectedItem.ToString(), "v",
             Integer.Parse(tbTelefono.Text), tbUbicacion.Text, tipoVisitante, tbProcedencia.Text))
 
-            titulo = "Correcto"
-            mensaje = "Se ha registrado el visitante exitosamente"
-            tipo = "success"
+            If (resultado = 1) Then
+                titulo = "Correcto"
+                mensaje = "Se ha registrado el visitante exitosamente"
+                tipo = "success"
+
+                tbNombre.Text = ""
+                tbApellidos.Text = ""
+                tbIdentificacion.Text = ""
+                tbTelefono.Text = ""
+                tbEmail.Text = ""
+                tbContrasena.Text = ""
+                tbUbicacion.Text = ""
+                tbProcedencia.Text = ""
+                DwnLstProcedencia.SelectedIndex = 0
+                DwnLstTipoIdentificacion.SelectedIndex = 0
+            Else
+                titulo = "Error"
+                mensaje = "Ese correo ya existe en el sistema"
+                tipo = "error"
+            End If
         End If
 
         ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "ScriptManager2", "muestraMensaje(""" + titulo + """,""" + mensaje + """,""" + tipo + """);", True)

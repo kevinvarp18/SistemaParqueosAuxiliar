@@ -9,26 +9,50 @@ Public Class administrarParqueo
     Public gstrParqueoSelecion As String
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        If String.Equals(Session("Usuario"), "a") Then
+
+        Dim permitido As Boolean = False
+
+        For Each variableSesion As String In Session.Keys
+            If (String.Equals(variableSesion, "frm_AdministrarParqueo")) Then
+                permitido = True
+            End If
+        Next
+
+        If (permitido) Then
             Dim connectionString As String = WebConfigurationManager.ConnectionStrings("DBOIJ").ToString()
             ScriptManager.RegisterClientScriptInclude(Me, Me.GetType(), "frm_AdministrarParqueo", ResolveUrl("~") + "public/js/" + "script.js")
 
+            Dim contentPlaceHolder As ContentPlaceHolder
+            Dim updatePanel As UpdatePanel
+            contentPlaceHolder = DirectCast(Page.Master.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
+            updatePanel = DirectCast(contentPlaceHolder.FindControl("UpdatePanel2"), UpdatePanel)
+
+            Dim updatePanel2 As UpdatePanel
+            updatePanel2 = DirectCast(contentPlaceHolder.FindControl("UpdatePanel3"), UpdatePanel)
+
             Dim parqueoNegocios As New SP_Parqueo_Negocios(connectionString)
+            Dim idPagina As String
+            Dim intIDparqueo As String
+            Dim strEstadoP As String
+            Dim strtipoParqueo As String
             If IsPostBack Then
+                idPagina = Request.QueryString("id")
+                Dim datosSolicitud As String() = idPagina.Split(New String() {";"}, StringSplitOptions.None)
+                idPagina = datosSolicitud(0)
                 Dim parqueo As LinkedList(Of Parqueo) = parqueoNegocios.obtenerParqueo()
-                Me.gstrParqueoSelecion = DwnEspacio.SelectedItem.ToString()
-                For Each parqueoActual As Parqueo In parqueo
-                    If Me.gstrParqueoSelecion.Equals("Numero Parqueo: " + parqueoActual.GintIdentificadorSG.ToString()) Then
-                        Me.gintParqueoIdentificador = parqueoActual.GintIdentificadorSG
+                If (idPagina.Equals("0")) Then
+                    updatePanel.Visible = True
+                    intIDparqueo = datosSolicitud(1)
+                    If (idPagina.Equals("1")) Then
+                        updatePanel.Visible = False
+                        updatePanel2.Visible = True
+                    ElseIf (idPagina.Equals("0")) Then
+                        updatePanel.Visible = True
+                        updatePanel2.Visible = False
                     End If
-                Next
+                    Me.gintParqueoIdentificador = Long.Parse(intIDparqueo)
+                End If
             Else
-                DwnEspacio.Items.Clear()
-                DwnEspacio.Items.Add("Sin Seleccionar")
-                Dim parqueo As LinkedList(Of Parqueo) = parqueoNegocios.obtenerParqueo()
-                For Each item As Parqueo In parqueo
-                    DwnEspacio.Items.Add("Numero Parqueo: " + item.GintIdentificadorSG.ToString)
-                Next
                 DwnLstTipos.Items.Clear()
                 DwnLstEstado.Items.Clear()
                 DwnLstTipos.Items.Add("Seleccione una opción")
@@ -43,23 +67,42 @@ Public Class administrarParqueo
                 DwnLstEstado.Items.Add("Seleccione una opción")
                 DwnLstEstado.Items.Add("Habilitado")
                 DwnLstEstado.Items.Add("Deshabilitado")
-                Me.gstrParqueoSelecion = DwnEspacio.SelectedItem.ToString()
-                For Each parqueoActual As Parqueo In parqueo
-                    If Me.gstrParqueoSelecion.Equals("Numero Parqueo: " + parqueoActual.GintIdentificadorSG.ToString()) Then
-                        Me.gintParqueoIdentificador = parqueoActual.GintIdentificadorSG
+                idPagina = Request.QueryString("id")
+                Dim datosSolicitud As String() = idPagina.Split(New String() {";"}, StringSplitOptions.None)
+                idPagina = datosSolicitud(0)
+                If (idPagina.Equals("1")) Then
+                    updatePanel.Visible = False
+                    updatePanel2.Visible = True
+                ElseIf (idPagina.Equals("0")) Then
+                    updatePanel.Visible = True
+                    updatePanel2.Visible = False
+                    intIDparqueo = datosSolicitud(1)
+                    Me.gintParqueoIdentificador = Long.Parse(intIDparqueo)
+                    strEstadoP = datosSolicitud(2)
+                    If strEstadoP.Equals("True") Then
+                        strEstadoP = "Habilitado"
+                        DwnLstEstado.Items.Remove("Habilitado")
+                    Else
+                        strEstadoP = "Deshabilitado"
+                        DwnLstEstado.Items.Remove("Deshabilitado")
                     End If
-                Next
+                    strtipoParqueo = datosSolicitud(3)
+                    DwnLstEstado.SelectedItem.Text = strEstadoP
+                    DwnLstTipos.Items.Remove(strtipoParqueo)
+                    DwnLstTipos.SelectedItem.Text = strtipoParqueo
+                End If
             End If
         Else
+            Dim url As String = HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.AbsolutePath, "")
             Response.BufferOutput = True
-            Response.Redirect("http://localhost:52086/view/frm_index.aspx")
+            Response.Redirect(url & Convert.ToString("/view/frm_index.aspx"))
         End If
     End Sub
 
     Protected Sub btnCrear_Click(sender As Object, e As EventArgs) Handles btnCrear.Click
         Dim titulo, mensaje, tipo As String
 
-        If (DwnEspacio.SelectedItem.ToString().Equals("Sin Seleccionar") Or DwnLstTipos.SelectedItem.ToString.Equals("Seleccione una opción") Or
+        If (DwnLstTipos.SelectedItem.ToString.Equals("Seleccione una opción") Or
             DwnLstEstado.SelectedItem.ToString.Equals("Seleccione una opción")) Then
 
             titulo = "ERROR"
@@ -78,15 +121,16 @@ Public Class administrarParqueo
             titulo = "Correcto"
             mensaje = "Se ha creado el parqueo exitosamente"
             tipo = "success"
-        End If
 
+        End If
         ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "ScriptManager2", "muestraMensaje(""" + titulo + """,""" + mensaje + """,""" + tipo + """);", True)
     End Sub
 
     Protected Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
         Dim titulo, mensaje, tipo As String
+        Dim Blnestado As Byte = 0
 
-        If (DwnEspacio.SelectedItem.ToString().Equals("Sin Seleccionar") Or DwnLstTipos.SelectedItem.ToString.Equals("Seleccione una opción") Or
+        If (DwnLstTipos.SelectedItem.ToString.Equals("Seleccione una opción") Or
             DwnLstEstado.SelectedItem.ToString.Equals("Seleccione una opción")) Then
 
             titulo = "ERROR"
@@ -95,13 +139,13 @@ Public Class administrarParqueo
 
         Else
 
-            Dim Blnestado As Byte = 0
+
             Dim strconnectionString As String = WebConfigurationManager.ConnectionStrings("DBOIJ").ToString()
             Dim parqueoNegocios As New SP_Parqueo_Negocios(strconnectionString)
             If (DwnLstEstado.Text.Equals("Habilitado")) Then
                 Blnestado = 1
             End If
-            parqueoNegocios.actualizarParqueo(New Parqueo(Me.gintParqueoIdentificador, Blnestado, DwnLstTipos.Text))
+            parqueoNegocios.actualizarParqueo(New Parqueo(Me.gintParqueoIdentificador, Blnestado, DwnLstTipos.SelectedItem.Text))
 
             titulo = "Correcto"
             mensaje = "Se ha actualizado el parqueo exitosamente"
@@ -114,7 +158,7 @@ Public Class administrarParqueo
     Protected Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
         Dim titulo, mensaje, tipo As String
 
-        If (DwnEspacio.SelectedItem.ToString().Equals("Sin Seleccionar") Or DwnLstTipos.SelectedItem.ToString.Equals("Seleccione una opción") Or
+        If (DwnLstTipos.SelectedItem.ToString.Equals("Seleccione una opción") Or
             DwnLstEstado.SelectedItem.ToString.Equals("Seleccione una opción")) Then
 
             titulo = "ERROR"

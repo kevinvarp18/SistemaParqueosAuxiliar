@@ -118,7 +118,7 @@ Public Class SP_Parqueo_Datos
     End Function
 
     Public Function obtenerParqueoOcupado(strFecha As String, strHorai As String, strHoraf As String) As LinkedList(Of Parqueo)
-
+        
         Dim connection As New SqlConnection(Me.gstrconnString)
         Dim sqlSelect As [String] = "PA_VerParqueosOcupados"
 
@@ -128,8 +128,8 @@ Public Class SP_Parqueo_Datos
         sqlDataAdapterClient.SelectCommand.Connection = connection
         sqlDataAdapterClient.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure
         sqlDataAdapterClient.SelectCommand.Parameters.Add(New SqlParameter("@fechaInicio", strFecha))
-        sqlDataAdapterClient.SelectCommand.Parameters.Add(New SqlParameter("@horaInicio", strHorai))
-        sqlDataAdapterClient.SelectCommand.Parameters.Add(New SqlParameter("@horaFinal", strHoraf))
+        sqlDataAdapterClient.SelectCommand.Parameters.Add(New SqlParameter("@horaInicio", CDate("15-10-2018 " + strHorai)))
+        sqlDataAdapterClient.SelectCommand.Parameters.Add(New SqlParameter("@horaFinal", CDate("15-10-2018 " + strHoraf)))
 
         Dim dataSetAttendant As New DataSet()
         sqlDataAdapterClient.Fill(dataSetAttendant, "TSP_Disponibilidad_Parqueo_X_TSP_Parqueo")

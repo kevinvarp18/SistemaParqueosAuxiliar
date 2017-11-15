@@ -30,7 +30,6 @@
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
         <div>
-
             <div class="top-bar w3agile-1" id="home">
                 <div class="container">
                     <div class="row">
@@ -40,42 +39,82 @@
                                     <img src="../public/images/placa.png" alt=" " /></a>
                             </div>
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1 wow fadeInRight animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
-                                <%
-                If String.Equals(Session("Usuario"), "a") Then
-                                %>
                                 <ul class="nav navbar-nav navbar-right">
-                                    <asp:HyperLink ID="HypLnkSolicitudes" Style="color: #efd12f" NavigateUrl="http://localhost:52086/view/frm_AdministrarSolicitudes.aspx?id=0" Text="Pendientes: " runat="server" />
+                                    <%
+                                        If String.Equals(Session("Usuario"), "a") Then
+                                    %>
+                                    <asp:HyperLink ID="HypLnkSolicitudes" Style="color: #efd12f" NavigateUrl="http://localhost:52086/view/frm_AdministrarSolicitudes.aspx" Text="S. Pendientes: " runat="server" />
+                                    <asp:HyperLink ID="HypLinkVisitantes" Style="color: #efd12f; padding-left: 30px; padding-right: 18px;" NavigateUrl="http://localhost:52086/view/frm_SolicitudesAtrasadas.aspx" Text="V. Atrasados: " runat="server" />
+                                    <%
+                                        End If
+                                    %>
                                 </ul>
-                                <%
-                End If
-                                %>
                                 <br>
-                                <ul class="nav navbar-nav navbar-right">
+                                <ul class="nav navbar-nav navbar-right" style="margin-left: -3.5%; margin-right: 0%;">
                                     <%
                 If String.Equals(Session("Usuario"), "N") Then
                                     %>
                                     <li><a href="frm_IniciarSesion.aspx">Iniciar Sesión</a></li>
                                     <li><a href="frm_RegistrarVisitante.aspx">Registrarse</a></li>
                                     <%
-                ElseIf String.Equals(Session("Usuario"), "v") Then
+                Else
+                    If String.Equals(Session("Usuario"), "a") Then
+                                    %>
+                                    <li><a href="frm_ManejarPermisos.aspx">Permisos</a></li>
+                                    <% 
+                End If
+                For Each vistaSistema As String In Session.Keys
+                    Select Case vistaSistema
+                        Case "frm_SolicitarParqueo"
                                     %>
                                     <li><a href="frm_SolicitarParqueo.aspx">Solicitar parqueo</a></li>
-                                    <li><a href="#" runat="server" onserverclick="cerrarSesion">Cerrar sesión</a></li>
-                                    <%
-                ElseIf String.Equals(Session("Usuario"), "a") Then
+                                    <% 
+                    Exit Select
+                Case "frm_VerParqueo"
                                     %>
                                     <li><a href="frm_VerParqueo.aspx">Ver parqueo</a></li>
-                                    <li><a href="frm_AdministrarParqueo.aspx">Administrar parqueo</a></li>
-                                    <li><a href="frm_AdministrarSolicitudes.aspx?id=0">Administrar solicitudes</a></li>
-                                    <li><a href="frm_RegistrarUsuario.aspx">Registrar usuarios</a></li>
+                                    <% 
+                    Exit Select
+                Case "frm_AdministrarParqueo"
+                                    %>
+                                    <li><a href="frm_AdministrarParqueo.aspx?id=1">Administrar parqueo</a></li>
+                                    <% 
+                    Exit Select
+                Case "frm_AdministrarSolicitudes"
+                                    %>
+                                    <li><a href="frm_AdministrarSolicitudes.aspx">Administrar solicitudes</a></li>
+                                    <% 
+                    Exit Select
+                Case "frm_SolicitudesAtrasadas"
+                                    %>
+                                    <li><a href="frm_SolicitudesAtrasadas.aspx">Visitantes atrasadas</a></li>
+                                    <% 
+                    Exit Select
+                Case "frm_RegistrarUsuario"
+                                    %>
+                                    <li><a href="frm_RegistrarUsuario.aspx">Registrar usuario</a></li>
+                                    <% 
+                    Exit Select
+                Case "frm_Reporte"
+                                    %>
                                     <li><a href="frm_Reporte.aspx">Reportes</a></li>
-                                    <li><a href="#" runat="server" onserverclick="cerrarSesion">Cerrar sesión</a></li>
                                     <%
-                ElseIf String.Equals(Session("Usuario"), "o") Then
+                    Exit Select
+                Case "frm_ListaVisitantes"
                                     %>
                                     <li><a href="frm_ListaVisitantes.aspx">Lista visitantes</a></li>
-                                    <li><a href="frm_BrindarAcceso.aspx">Brindar parqueo</a></li>
-                                    <li><a href="#" runat="server" onserverclick="cerrarSesion">Cerrar sesión</a></li>
+
+                                    <%
+                    Exit Select
+                Case "frm_BrindarParqueo"
+                                    %>
+                                    <li><a href="frm_BrindarParqueo.aspx">Brindar parqueo</a></li>
+                                    <%
+                        Exit Select
+                    End Select
+                Next
+                                    %>
+                                    <li><a href="#" runat="server" onserverclick="cerrarSesion">Salir</a></li>
                                     <%
                 End If
                                     %>
@@ -94,65 +133,6 @@
                 <br>
                 <br>
             </footer>
-
-            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content modal-info">
-                        <div class="top-bar w3agile-1" id="home">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            </div>
-                            <div class="container">
-                                <div class="row">
-                                    <nav class="navbar navbar-default">
-                                        <div class="navbar-header wow fadeInLeft animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;">
-                                            <a href="frm_index.aspx" style="margin-left: 30%;">
-                                                <img src="../public/images/placa.png" alt=" " /></a>
-                                        </div>
-                                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1 wow fadeInRight animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
-                                            <br />
-                                            <br />
-                                            <h1>Ver Parqueo</h1>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </nav>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-body">
-
-                            <div class="newsletter wow fadeInUp animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
-                                <div class="container">
-                                    <asp:UpdatePanel ID="UpdatePanel2" runat="server" Visible="true">
-                                        <ContentTemplate>
-                                            <asp:Label ID="lblFecha" runat="server" Style="margin-left: 0%;" Text="Fecha:"></asp:Label>
-                                            <asp:TextBox ID="tbFechaI" type="date" required="" runat="server" Style="width: 13%;"></asp:TextBox>
-                                            <asp:Label ID="lblDesde" runat="server" Style="margin-left: 18%;" Text="Desde:"></asp:Label>
-                                            <asp:TextBox ID="tbHoraI" TextMode="Time" required="" runat="server" Style="margin-left: 2%; width: 13%;"></asp:TextBox>
-                                            <asp:Label ID="lblHasta" runat="server" Style="margin-left: 11%;" Text="Hasta:"></asp:Label>
-                                            <asp:TextBox ID="tbHoraF" TextMode="Time" required="" runat="server" Style="width: 13%;"></asp:TextBox>
-                                            <asp:Button ID="btnBuscarP" runat="server" Style="margin-left: 43%; width: 15%;" Text="Ver" OnClick="llenarTabla" />
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-                                    <div class="page w3-4">
-                                        <div class="bs-example " data-example-id="simple-table">
-                                            <asp:Table ID="table" runat="server" CssClass="table">
-                                            </asp:Table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <footer>
-                            <p class="copy-right wow fadeInUp animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">Organismo de Investigaci&oacute;n Judicial - Poder Judicial - San Jos&eacute; - Costa Rica- Copyright ©</p>
-                            <br />
-                            <br />
-                        </footer>
-                    </div>
-                </div>
-            </div>
         </div>
     </form>
 </body>

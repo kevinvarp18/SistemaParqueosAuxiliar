@@ -9,7 +9,16 @@ Public Class frm_RegistrarUsuario
     Dim usuarioNegocios As SP_Usuario_Negocios
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        If String.Equals(Session("Usuario"), "a") Then
+
+        Dim permitido As Boolean = False
+
+        For Each variableSesion As String In Session.Keys
+            If (String.Equals(variableSesion, "frm_RegistrarUsuario")) Then
+                permitido = True
+            End If
+        Next
+
+        If (permitido) Then
             Me.connectionString = WebConfigurationManager.ConnectionStrings("DBOIJ").ToString()
             Me.usuarioNegocios = New SP_Usuario_Negocios(connectionString)
             ScriptManager.RegisterClientScriptInclude(Me, Me.GetType(), "frm_RegistrarUsuario", ResolveUrl("~") + "public/js/" + "script.js")
@@ -56,8 +65,9 @@ Public Class frm_RegistrarUsuario
                 DwnLstProcedencia.Items.Add("Interno")
             End If
         Else
+            Dim url As String = HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.AbsolutePath, "")
             Response.BufferOutput = True
-            Response.Redirect("http://localhost:52086/view/frm_index.aspx")
+            Response.Redirect(url & Convert.ToString("/view/frm_index.aspx"))
         End If
     End Sub
 

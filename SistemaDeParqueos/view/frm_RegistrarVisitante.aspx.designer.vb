@@ -185,6 +185,15 @@ Partial Public Class registrarVisitante
     Protected WithEvents DwnLstProcedencia As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
+    '''UpdatePanel2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel2 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
     '''lblProcedenciatb control.
     '''</summary>
     '''<remarks>
