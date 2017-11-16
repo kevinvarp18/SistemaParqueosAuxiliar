@@ -32,7 +32,6 @@
                             <asp:TextBox ID="tbProcedencia" type="text" runat="server" Style="margin-left: 4%; width: 27%;"></asp:TextBox><br />
                         </ContentTemplate>
                     </asp:UpdatePanel>
-
                     <asp:Button ID="btnRegistrar" runat="server" CssClass="singleTextBox" OnClick="btnRegistrar_Click" Text="Registrarse" /><br />
                     <br />
                 </ContentTemplate>
