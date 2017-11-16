@@ -129,12 +129,12 @@
                     </div>
                 </div>
             </div>
-            <div class="formulario">
-                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                </asp:ContentPlaceHolder>
-            </div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
             <footer>
                 <p class="copy-right wow fadeInUp animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">Organismo de Investigaci&oacute;n Judicial - Poder Judicial - San Jos&eacute; - Costa Rica- Copyright ©</p>
+                <br>
+                <br>
             </footer>
         </div>
     </form>

@@ -240,19 +240,21 @@ ul.top-icons {
     width: 50%;
 }
 
-.infoGeneral {
-    text-align: center;
+.infoGeneral h3 {
+    font-size: 300%;
     color: #000000;
+    margin-top: 0.75em;
+    margin-bottom: 1em;
+    font-weight: 700;
+    text-align: center;
 }
 
-    .infoGeneral h3 {
-        font-size: 300%;
-    }
-
-    .infoGeneral p {
-        font-size: 100%;
-        margin-top: 2em;
-    }
+.infoGeneral p {
+    color: #000000;
+    font-size: 100%;
+    margin-top: 1em;
+    text-align: center;
+}
 
 .modal-header {
     border-bottom: 10px solid #000;
@@ -575,13 +577,18 @@ agile_count_grid_left span, .agile_count_grid_right p {
     margin-left: 40%;
 }
 
+/*.newsletter input[type="submit"]:hover {
+    background: #253b50;
+    color: #ffffff;
+}*/
+
 .newsletter form {
     margin-top: 35px;
 }
 /*-- w3ls --*/
 footer {
     background: #000000;
-    padding-bottom: 2em;
+    /*padding: 100px 0 40px;*/
 }
 
 .copy-right {
@@ -1747,15 +1754,6 @@ a.read {
 }
 
 @media (max-width:1366px) {
-    .infoGeneral {
-        padding: 10em;
-    }
-}
-
-@media (max-width: 1366px) and (max-height:1024px) {
-    .infoGeneral {
-        padding: 16.3em 0;
-    }
 }
 
 @media (max-width:1280px) {
@@ -1952,12 +1950,6 @@ a.read {
 
     .contact-text-inner a, p.your-para, .lost-para p {
         font-size: 0.9em;
-    }
-}
-
-@media (max-width: 1024px) and (max-height: 1366px) {
-    .infoGeneral {
-        padding: 26em 0;
     }
 }
 
@@ -2495,18 +2487,6 @@ a.read {
     }
 }
 
-@media (max-width: 768px) and (max-height: 1024px) {
-    .infoGeneral {
-        padding: 16em 0;
-    }
-}
-
-@media (max-width: 1024px) and (max-height: 768px) {
-    .infoGeneral {
-        padding: 7.4em 0;
-    }
-}
-
 @media (max-width: 767px) {
     .navbar-header a {
         margin-left: 4%;
@@ -2588,13 +2568,13 @@ a.read {
         padding: 7em 0 0;
     }
 
-        .banner-info h2 {
-            font-size: 2em;
-        }
+    .banner-info h2 {
+        font-size: 2em;
+     }
 
-        .banner-info p {
-            font-size: 1em;
-        }
+     .banner-info p {
+        font-size: 1em;
+     }
 
     .banner {
         min-height: 440px;
@@ -2615,19 +2595,6 @@ a.read {
 }
 
 @media (max-width:667px) {
-
-    .infoGeneral {
-        padding: 4em 0;
-    }
-
-    .infoGeneral h3 {
-        font-size: 240%;
-    }
-
-    .infoGeneral p {
-        font-size: 90%;
-        margin: 0.6em;
-    }
 
     .modal-dialog {
         width: 625px;
@@ -3194,10 +3161,6 @@ a.read {
 
 @media (max-width:414px) {
 
-    .infoGeneral {
-        padding: 10.5em 0;
-    }
-
     .navbar-default {
         padding-bottom: 0.7em;
     }
@@ -3535,16 +3498,6 @@ a.read {
 }
 
 @media (max-width:375px) {
-
-    .infoGeneral {
-        padding: 8.5em 0;
-    }
-
-    .infoGeneral p {
-        font-size: 90%;
-        margin: 0.6em;
-    }
-
     .modal-dialog {
         width: 338px;
     }

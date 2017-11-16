@@ -229,6 +229,7 @@
     </Compile>
     <Compile Include="Site1.Master.vb">
       <DependentUpon>Site1.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="view\frm_AdministrarParqueo.aspx.designer.vb">
       <DependentUpon>frm_AdministrarParqueo.aspx</DependentUpon>
