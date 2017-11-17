@@ -194,22 +194,49 @@ Partial Public Class registrarVisitante
     Protected WithEvents UpdatePanel2 As Global.System.Web.UI.UpdatePanel
     
     '''<summary>
-    '''lblProcedenciatb control.
+    '''lblInstitucion control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblProcedenciatb As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblInstitucion As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''tbProcedencia control.
+    '''tbInstitucion control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents tbProcedencia As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents tbInstitucion As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''UpdatePanel3 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel3 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''lblDept control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblDept As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''DwnLstDept control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents DwnLstDept As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''btnRegistrar control.
