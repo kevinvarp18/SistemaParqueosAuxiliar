@@ -9,11 +9,11 @@ Public Class frm_ManejarPermisos
     Dim usuarioNegocios As SP_Usuario_Negocios
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        'If String.Equals(Session("Usuario"), "a") Then
-        Me.strConnectionString = WebConfigurationManager.ConnectionStrings("DBOIJ").ToString()
+
+        If (Session("Usuario").Equals("a")) Then
+            Me.strConnectionString = WebConfigurationManager.ConnectionStrings("DBOIJ").ToString()
             Me.usuarioNegocios = New SP_Usuario_Negocios(Me.strConnectionString)
             ScriptManager.RegisterClientScriptInclude(Me, Me.GetType(), "frm_ManejarPermisos", ResolveUrl("~") + "public/js/" + "script.js")
-
 
             If Not IsPostBack Then
                 llenarTabla()
@@ -28,12 +28,11 @@ Public Class frm_ManejarPermisos
                 DwnLstRoles.Items.Add("Oficial de Seguridad")
                 DwnLstRoles.Items.Add("Visitante")
             End If
-
-        'Else
-        '    Dim url As String = HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.AbsolutePath, "")
-        '    Response.BufferOutput = True
-        '    Response.Redirect(url & Convert.ToString("/view/frm_index.aspx"))
-        'End If
+        Else
+            Dim url As String = HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.AbsolutePath, "")
+            Response.BufferOutput = True
+            Response.Redirect(url & Convert.ToString("/view/frm_index.aspx"))
+        End If
     End Sub
 
     Public Sub llenarTabla()
@@ -102,7 +101,7 @@ Public Class frm_ManejarPermisos
 
         End If
 
-            ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "ScriptManager2", "muestraMensaje(""" + titulo + """,""" + mensaje + """,""" + tipo + """);", True)
+        ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "ScriptManager2", "muestraMensaje(""" + titulo + """,""" + mensaje + """,""" + tipo + """);", True)
     End Sub
 
     Protected Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click

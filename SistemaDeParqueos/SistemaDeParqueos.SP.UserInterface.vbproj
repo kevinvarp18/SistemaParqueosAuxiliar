@@ -132,6 +132,27 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="public\css\animate.min.css" />
+    <Content Include="public\css\bootstrap.css" />
+    <Content Include="public\css\style.css" />
+    <Content Include="public\css\swipebox.css" />
+    <Content Include="public\images\arrows.png" />
+    <Content Include="public\images\closew.gif" />
+    <Content Include="public\images\dot.png" />
+    <Content Include="public\images\leftw.gif" />
+    <Content Include="public\images\move-top.png" />
+    <Content Include="public\images\placa.png" />
+    <Content Include="public\images\rightw.gif" />
+    <Content Include="public\images\themes.gif" />
+    <Content Include="public\js\bootstrap.js" />
+    <Content Include="public\js\counterup.min.js" />
+    <Content Include="public\js\jquery-1.11.1.min.js" />
+    <Content Include="public\js\jquery.swipebox.min.js" />
+    <Content Include="public\js\main.js" />
+    <Content Include="public\js\responsiveslides.min.js" />
+    <Content Include="public\js\sweetalert2.all.min.js" />
+    <Content Include="public\js\waypoints.min.js" />
+    <Content Include="public\js\wow.min.js" />
     <Content Include="view\frm_SolicitudesAtrasadas.aspx" />
     <Content Include="public\js\script.js" />
     <Content Include="view\frm_AdministrarSolicitudes.aspx" />
@@ -283,6 +304,7 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
+    <None Include="My Project\PublishProfiles\SP.pubxml" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
@@ -290,6 +312,9 @@
     </None>
     <Content Include="packages.config" />
     <Content Include="Site1.Master" />
+    <Content Include="public\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="public\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="public\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

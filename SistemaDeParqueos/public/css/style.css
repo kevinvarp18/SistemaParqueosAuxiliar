@@ -514,21 +514,25 @@ agile_count_grid_left span, .agile_count_grid_right p {
         margin-left: 30%;
         margin-top: 0.8%;
         width: 10%;
-        float: left;    
+        float: left;
     }
 
     .newsletter a {
         text-align: center;
     }
 
-    .newsletter input[type="text"], .newsletter input[type="number"], .newsletter input[type="email"], .newsletter input[type="password"], select, .newsletter input[type="time"], .newsletter input[type="date"] {
+    .newsletter input[type="text"], .newsletter input[type="date"], .newsletter input[type="number"], .newsletter input[type="email"], .newsletter input[type="password"], select, .newsletter input[type="time"] {
         border: 1px solid #000000;
-        width: 30%;
+        width: 25%;
         margin: 0 0 1.9em 0;
         margin-left: 3%;
         font-size: 13px;
         color: #000000;
         padding: 10px 12px;
+    }
+
+    .newsletter input[type="date"] {
+        padding: 3px 12px;
     }
 
     .newsletter input[type="submit"] {
@@ -559,16 +563,21 @@ agile_count_grid_left span, .agile_count_grid_right p {
     padding: 0px 0px;
 }
 
-.multipleTextBox {
+.multipleButton {
     display: inline-block;
     margin-top: 5%;
-    margin-left: 10%;
+    margin-left: 18%;
 }
 
-.singleTextBox {
+.singleButton {
     margin-top: 4%;
     margin-left: 40%;
 }
+
+.recordarContrasena {
+    margin-left: 43%;
+}
+
 
 /*-- w3ls --*/
 footer {
@@ -2612,14 +2621,14 @@ a.read {
         padding: 4em 0;
     }
 
-    .infoGeneral h3 {
-        font-size: 240%;
-    }
+        .infoGeneral h3 {
+            font-size: 240%;
+        }
 
-    .infoGeneral p {
-        font-size: 90%;
-        margin: 0.6em;
-    }
+        .infoGeneral p {
+            font-size: 90%;
+            margin: 0.6em;
+        }
 
     .modal-dialog {
         width: 625px;
@@ -3532,10 +3541,10 @@ a.read {
         padding: 8.5em 0;
     }
 
-    .infoGeneral p {
-        font-size: 90%;
-        margin: 0.6em;
-    }
+        .infoGeneral p {
+            font-size: 90%;
+            margin: 0.6em;
+        }
 
     .modal-dialog {
         width: 338px;

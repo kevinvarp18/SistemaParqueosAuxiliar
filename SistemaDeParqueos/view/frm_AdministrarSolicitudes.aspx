@@ -13,7 +13,7 @@
                         <div class="page w3-4">
                             <div class="bs-example " data-example-id="simple-table">
                                 <div class="botonTabla">
-                                    <asp:Table ID="tablaSolicitudes" Style="margin-left: -3%;" runat="server" CssClass="table">
+                                    <asp:Table ID="tablaSolicitudes" runat="server" CssClass="table">
                                         <asp:TableHeaderRow>
                                             <asp:TableHeaderCell>Nombre</asp:TableHeaderCell>
                                             <asp:TableHeaderCell>Placa</asp:TableHeaderCell>

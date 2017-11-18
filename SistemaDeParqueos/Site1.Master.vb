@@ -7,6 +7,7 @@ Public Class Site1
 
     Dim connectionString As String
     Dim solicitudNegocios As SP_Solicitud_Parqueo_Negocios
+    Dim url As String
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If IsPostBack Then
@@ -19,6 +20,10 @@ Public Class Site1
 
                 HypLnkSolicitudes.Text = HypLnkSolicitudes.Text + Me.solicitudNegocios.obtenerNumeroSolicitudes()
                 HypLinkVisitantes.Text = HypLinkVisitantes.Text + Me.solicitudNegocios.obtenerNumeroVisitantesAtrasados()
+
+                url = HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.AbsolutePath, "")
+                HypLnkSolicitudes.NavigateUrl = url + "/view/frm_AdministrarSolicitudes.aspx"
+                HypLinkVisitantes.NavigateUrl = url + "/view/frm_SolicitudesAtrasadas.aspx"
             End If 'Si la session es nula, lo inicia en N.
         End If
     End Sub
@@ -26,7 +31,7 @@ Public Class Site1
     Protected Sub cerrarSesion(sender As Object, e As EventArgs)
         Session.RemoveAll()
         Response.BufferOutput = True
-        Response.Redirect("http://localhost:52086/view/frm_index.aspx")
+        Response.Redirect(url & Convert.ToString("/view/frm_index.aspx"))
     End Sub
 
 End Class

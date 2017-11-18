@@ -43,24 +43,23 @@ Public Class frm_AdministrarSolicitudes
         For Each solicitudAct As Solicitud In solicitudes
             For rowCtr = 1 To rowCnt
                 Dim filaTabla As New TableRow()
-                Dim columnaMarca As New TableCell()
-                Dim columnaPlaca As New TableCell()
-                Dim columnaFechaI As New TableCell()
-                Dim columnaHoraI As New TableCell()
-                Dim columnaFechaS As New TableCell()
-                Dim columnaHoraS As New TableCell()
-                Dim columnaEspaciosParqueo As New TableCell()
-                Dim columnaHypLnk As New TableCell()
+                Dim celdaMarca As New TableCell()
+                Dim celdaPlaca As New TableCell()
+                Dim celdaFechaI As New TableCell()
+                Dim celdaHoraI As New TableCell()
+                Dim celdaFechaS As New TableCell()
+                Dim celdaHoraS As New TableCell()
+                Dim celdaEspaciosParqueo As New TableCell()
+                Dim celdaBotones As New TableCell()
 
-                columnaMarca.Text = solicitudAct.GstrMarcaSG
-                columnaPlaca.Text = solicitudAct.GstrPlacaSG
-                columnaFechaI.Text = solicitudAct.GstrFechaISG.Substring(0, 10)
-                columnaHoraI.Text = solicitudAct.GstrHoraISG
-                columnaFechaS.Text = solicitudAct.GstrFechaFSG.Substring(0, 10)
-                columnaHoraS.Text = solicitudAct.GstrHoraFSG
+                celdaMarca.Text = solicitudAct.GstrMarcaSG
+                celdaPlaca.Text = solicitudAct.GstrPlacaSG
+                celdaFechaI.Text = solicitudAct.GstrFechaISG.Substring(0, 10)
+                celdaHoraI.Text = solicitudAct.GstrHoraISG
+                celdaFechaS.Text = solicitudAct.GstrFechaFSG.Substring(0, 10)
+                celdaHoraS.Text = solicitudAct.GstrHoraFSG
                 filaTabla.ID = "filaTabla" + contador.ToString()
-                columnaEspaciosParqueo.ID = "columnaParqueo" + contador.ToString()
-                columnaHypLnk.ID = "columnaHypLnk" + contador.ToString()
+                celdaEspaciosParqueo.ID = "celdaParqueo" + contador.ToString()
 
                 Dim DwnLstParqueos As New DropDownList()
                 DwnLstParqueos.Width = 75%
@@ -81,36 +80,36 @@ Public Class frm_AdministrarSolicitudes
 
                 Dim literalControl As New LiteralControl()
                 literalControl.Text = ""
-                columnaEspaciosParqueo.Controls.Add(literalControl)
-                columnaHypLnk.Controls.Add(literalControl)
+                celdaEspaciosParqueo.Controls.Add(literalControl)
+                celdaBotones.Controls.Add(literalControl)
 
                 Dim btnRechazar As Button = New Button
-                btnRechazar.CssClass = contador.ToString() + ";" + solicitudAct.GstrMarcaSG + ";" + solicitudAct.GstrPlacaSG + ";" + solicitudAct.GstrHoraISG + ";" + solicitudAct.GstrHoraFSG + ";" + columnaFechaI.Text + ";" + columnaFechaS.Text + ";" + solicitudAct.GstrModeloSG + ";0"
+                btnRechazar.CssClass = contador.ToString() + ";" + solicitudAct.GstrMarcaSG + ";" + solicitudAct.GstrPlacaSG + ";" + solicitudAct.GstrHoraISG + ";" + solicitudAct.GstrHoraFSG + ";" + celdaFechaI.Text + ";" + celdaFechaS.Text + ";" + solicitudAct.GstrModeloSG + ";0"
                 btnRechazar.Text = "(Rechazar)"
                 btnRechazar.Width = 90%
                 btnRechazar.Style("color") = "#ff0000"
                 AddHandler btnRechazar.Click, AddressOf Me.button_Click
 
                 Dim btnAceptar As Button = New Button
-                btnAceptar.CssClass = contador.ToString() + ";" + solicitudAct.GstrMarcaSG + ";" + solicitudAct.GstrPlacaSG + ";" + solicitudAct.GstrHoraISG + ";" + solicitudAct.GstrHoraFSG + ";" + columnaFechaI.Text + ";" + columnaFechaS.Text + ";" + solicitudAct.GstrModeloSG + ";1"
+                btnAceptar.CssClass = contador.ToString() + ";" + solicitudAct.GstrMarcaSG + ";" + solicitudAct.GstrPlacaSG + ";" + solicitudAct.GstrHoraISG + ";" + solicitudAct.GstrHoraFSG + ";" + celdaFechaI.Text + ";" + celdaFechaS.Text + ";" + solicitudAct.GstrModeloSG + ";1"
                 btnAceptar.Text = "(Aceptar)"
                 btnAceptar.Width = 90%
                 btnAceptar.Style("color") = "#00fe00"
                 AddHandler btnAceptar.Click, AddressOf Me.button_Click
 
-                columnaEspaciosParqueo.Controls.Add(DwnLstParqueos)
+                celdaEspaciosParqueo.Controls.Add(DwnLstParqueos)
                 listaDwnLstParqueos.AddLast(DwnLstParqueos)
-                columnaHypLnk.Controls.Add(btnRechazar)
-                columnaHypLnk.Controls.Add(btnAceptar)
+                celdaBotones.Controls.Add(btnRechazar)
+                celdaBotones.Controls.Add(btnAceptar)
 
-                filaTabla.Cells.Add(columnaMarca)
-                filaTabla.Cells.Add(columnaPlaca)
-                filaTabla.Cells.Add(columnaFechaI)
-                filaTabla.Cells.Add(columnaHoraI)
-                filaTabla.Cells.Add(columnaFechaS)
-                filaTabla.Cells.Add(columnaHoraS)
-                filaTabla.Cells.Add(columnaEspaciosParqueo)
-                filaTabla.Cells.Add(columnaHypLnk)
+                filaTabla.Cells.Add(celdaMarca)
+                filaTabla.Cells.Add(celdaPlaca)
+                filaTabla.Cells.Add(celdaFechaI)
+                filaTabla.Cells.Add(celdaHoraI)
+                filaTabla.Cells.Add(celdaFechaS)
+                filaTabla.Cells.Add(celdaHoraS)
+                filaTabla.Cells.Add(celdaEspaciosParqueo)
+                filaTabla.Cells.Add(celdaBotones)
                 tablaSolicitudes.Rows.Add(filaTabla)
 
                 contador = contador + 1
@@ -135,13 +134,11 @@ Public Class frm_AdministrarSolicitudes
                 tableHeaderCell.Text = tipos
                 tableHeaderCell.ID = tipos
                 tableHeaderRow.Cells.Add(tableHeaderCell)
-            Next 'Agrega los tipos de parqueos a la primera fila.
+            Next
             tablaParqueos.Rows.Add(tableHeaderRow)
             Dim tableRow As New TableRow()
             For rowCtr = 0 To cantidadTiposParqueo.Count - 1
                 Dim tableCell As New TableCell()
-                'tableCell.Style("display") = "block"
-                'For cellCtr = 0 To 1
                 For Each parqueoActual As Parqueo In parqueosTotales
                     Dim tipoParqueo As String
                     tipoParqueo = tablaParqueos.Rows.Item(0).Cells.Item(rowCtr).ID
@@ -152,7 +149,7 @@ Public Class frm_AdministrarSolicitudes
                             If parqueoActual.GintIdentificadorSG = parqueoOcupado.GintIdentificadorSG Then
                                 ocu = True
                             End If
-                        Next 'Busca en todos los parqueos ocupados, para ver si el parqueo actual está ocupado.
+                        Next
                         hyperLink.Text = String.Concat("Espacio ", parqueoActual.GintIdentificadorSG.ToString(), "<br/>", " ")
                         hyperLink.NavigateUrl = "frm_AdministrarParqueo.aspx?id=0;" + parqueoActual.GintIdentificadorSG.ToString() + ";" + parqueoActual.GintDisponibleSG.ToString() + ";" + parqueoActual.GstrTipoSG.ToString()
                         If parqueoActual.GintDisponibleSG = 0 Then
@@ -165,10 +162,9 @@ Public Class frm_AdministrarSolicitudes
                         End If
                         tableCell.Controls.Add(hyperLink)
                     End If
-                Next 'For rowCtr = 0 To rowCnt
-                'Next
+                Next
                 tableRow.Cells.Add(tableCell)
-            Next 'For Each parqueosAct As Parqueo In parqueosTotales
+            Next
             tablaParqueos.Rows.Add(tableRow)
         End If
     End Sub
@@ -188,7 +184,7 @@ Public Class frm_AdministrarSolicitudes
         updatePanel = DirectCast(contentPlaceHolder.FindControl("UpdatePanel1"), UpdatePanel)
         tabla = DirectCast(updatePanel.FindControl("tablaSolicitudes"), Table)
         fila = tablaSolicitudes.Rows.Item(Integer.Parse(datosSolicitud(0)))
-        columnaEspacioD = DirectCast(fila.FindControl("columnaParqueo" + datosSolicitud(0)), TableCell)
+        columnaEspacioD = DirectCast(fila.FindControl("celdaParqueo" + datosSolicitud(0)), TableCell)
         dwnLstParqueo = DirectCast(columnaEspacioD.FindControl("DwnLstParqueo" + datosSolicitud(0)), DropDownList)
         idParqueo = dwnLstParqueo.SelectedItem.Value
 

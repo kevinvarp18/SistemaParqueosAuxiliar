@@ -23,24 +23,6 @@ Partial Public Class frm_SolicitarParqueo
     Protected WithEvents UpdatePanel1 As Global.System.Web.UI.UpdatePanel
     
     '''<summary>
-    '''lblSolicitante control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblSolicitante As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''lblUsuario control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblUsuario As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
     '''lblFechaE control.
     '''</summary>
     '''<remarks>

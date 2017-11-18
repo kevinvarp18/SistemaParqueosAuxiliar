@@ -12,9 +12,9 @@
                     <asp:TextBox ID="tbUsuario" type="email" runat="server"></asp:TextBox><br />
                     <asp:Label ID="lblContrasena" runat="server" Text="Contraseña:"></asp:Label>
                     <asp:TextBox ID="tbContrasena" type="password" runat="server"></asp:TextBox><br />
-                    <asp:LinkButton ID="lblRecordar" runat="server" OnClick="enviarCorreo">¿Olvidaste la contraseña?</asp:LinkButton>
+                    <asp:LinkButton ID="lblRecordar" runat="server" CssClass="recordarContrasena" OnClick="enviarCorreo">¿Olvidaste la contraseña?</asp:LinkButton>
                     <br />
-                    <asp:Button ID="btnIngresar" runat="server" CssClass="singleTextBox" OnClick="btnIngresar_Click" Text="Ingresar" />
+                    <asp:Button ID="btnIngresar" runat="server" CssClass="singleButton" OnClick="btnIngresar_Click" Text="Ingresar" />
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>

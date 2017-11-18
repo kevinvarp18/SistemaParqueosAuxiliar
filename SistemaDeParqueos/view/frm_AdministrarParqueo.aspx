@@ -9,18 +9,15 @@
                 <ContentTemplate>
                     <h3>Administrar Parqueo</h3>
                     <asp:Label ID="lblTipo" runat="server" Text="Tipo:"></asp:Label>
-                    <asp:DropDownList ID="DwnLstTipos" runat="server" Style="margin-left: 8.4%;" AutoPostBack="false"></asp:DropDownList><br />
+                    <asp:DropDownList ID="DwnLstTipos" runat="server" AutoPostBack="false"></asp:DropDownList><br />
                     <asp:Label ID="lblEstado" runat="server" Text="Estado:"></asp:Label>
-                    <asp:DropDownList ID="DwnLstEstado" runat="server" Style="margin-left: 7%;" AutoPostBack="false"></asp:DropDownList>
-                    <br />
-                    <br />
-                    <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
+                    <asp:DropDownList ID="DwnLstEstado" runat="server" AutoPostBack="false"></asp:DropDownList><br /><br /><br />
                 </ContentTemplate>
             </asp:UpdatePanel>
             <asp:UpdatePanel ID="UpdatePanel2" runat="server" Visible="false">
                 <ContentTemplate>
-                    <asp:Button ID="btnActualizar" runat="server" Style="margin-left: 28%;" CssClass="multipleTextBox" OnClick="btnActualizar_Click" Text="Actualizar" />
-                    <asp:Button ID="btnEliminar" runat="server" CssClass="multipleTextBox" OnClick="btnEliminar_Click" Text="Eliminar" />
+                    <asp:Button ID="btnActualizar" runat="server" CssClass="multipleButton" OnClick="btnActualizar_Click" Text="Actualizar" />
+                    <asp:Button ID="btnEliminar" runat="server" CssClass="multipleButton" OnClick="btnEliminar_Click" Text="Eliminar" />
                 </ContentTemplate>
             </asp:UpdatePanel>
             <asp:UpdatePanel ID="UpdatePanel3" runat="server" Visible="false">

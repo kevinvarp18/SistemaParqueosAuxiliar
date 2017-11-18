@@ -14,7 +14,6 @@ Public Class frm_SolicitarParqueo
         Next
 
         If (permitido) Then
-            lblUsuario.Text = Session("Correo")
             ScriptManager.RegisterClientScriptInclude(Me, Me.GetType(), "frm_SolicitarParqueo", ResolveUrl("~") + "public/js/" + "script.js")
         Else
             Dim url As String = HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.AbsolutePath, "")

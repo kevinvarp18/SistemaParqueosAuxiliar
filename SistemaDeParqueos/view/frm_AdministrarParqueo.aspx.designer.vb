@@ -59,15 +59,6 @@ Partial Public Class administrarParqueo
     Protected WithEvents DwnLstEstado As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''lblMensaje control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblMensaje As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
     '''UpdatePanel2 control.
     '''</summary>
     '''<remarks>

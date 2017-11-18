@@ -16,13 +16,15 @@
                             </asp:TableHeaderRow>
                         </asp:Table>
                     </div>
-                    <br />
+                    <br /><br />
                     <h3>Agregar o Eliminar Permisos a un Rol</h3>
                     <br />
-                    <asp:DropDownList ID="DwnLstPermisos" runat="server" Style="margin-left: 3%; width: 27%;" AutoPostBack="false"></asp:DropDownList><br />
-                    <asp:DropDownList ID="DwnLstRoles" runat="server" Style="margin-left: 3%; width: 27%;" AutoPostBack="false"></asp:DropDownList><br />
-                    <asp:Button ID="btnAgregar" runat="server" CssClass="multipleTextBox" Style="margin-left: -2.5%;" OnClick="btnAgregar_Click" Text="Agregar" />
-                    <asp:Button ID="btnEliminar" runat="server" CssClass="multipleTextBox" OnClick="btnEliminar_Click" Text="Eliminar" /><br />
+                    <asp:Label ID="lblPermiso" runat="server" Text="Permiso:"></asp:Label>
+                    <asp:DropDownList ID="DwnLstPermisos" runat="server" AutoPostBack="false"></asp:DropDownList><br />
+                    <asp:Label ID="lblUsuario" runat="server" Text="Usuario:"></asp:Label>
+                    <asp:DropDownList ID="DwnLstRoles" runat="server" AutoPostBack="false"></asp:DropDownList><br />
+                    <asp:Button ID="btnAgregar" runat="server" CssClass="multipleButton" OnClick="btnAgregar_Click" Text="Agregar" />
+                    <asp:Button ID="btnEliminar" runat="server" CssClass="multipleButton" OnClick="btnEliminar_Click" Text="Eliminar" /><br />
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>

@@ -32,6 +32,15 @@ Partial Public Class frm_ManejarPermisos
     Protected WithEvents tabla As Global.System.Web.UI.WebControls.Table
     
     '''<summary>
+    '''lblPermiso control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblPermiso As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''DwnLstPermisos control.
     '''</summary>
     '''<remarks>
@@ -39,6 +48,15 @@ Partial Public Class frm_ManejarPermisos
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents DwnLstPermisos As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''lblUsuario control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblUsuario As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
     '''DwnLstRoles control.

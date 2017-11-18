@@ -7,13 +7,13 @@
             <asp:UpdatePanel ID="UpdatePanel1" runat="server" Visible="true">
                 <ContentTemplate>
                     <h3>Ver Parqueo</h3>
-                    <asp:Label ID="lblFecha" runat="server" style="margin-left: 0%;" Text="Fecha:"></asp:Label>
-                    <asp:TextBox ID="tbFechaI" type="date" required="" runat="server" style="width: 13%;"></asp:TextBox>
-                    <asp:Label ID="lblDesde" runat="server" style="margin-left: 18%;" Text="Desde:"></asp:Label>
-                    <asp:TextBox ID="tbHoraI" TextMode="Time" required="" runat="server" style="margin-left: 2%; width: 13%;"></asp:TextBox>
-                    <asp:Label ID="lblHasta" runat="server" style="margin-left: 15%;" Text="Hasta:"></asp:Label>
-                    <asp:TextBox ID="tbHoraF" TextMode="Time" required="" runat="server" style="width: 13%;"></asp:TextBox>                    
-                    <asp:Button ID="btnBuscarP" runat="server" style="margin-left: 43%; width: 15%;"  Text="Ver" />
+                    <asp:Label ID="lblFecha" runat="server" Text="Fecha:"></asp:Label>
+                    <asp:TextBox ID="tbFechaI" type="date" required="" runat="server"></asp:TextBox><br />
+                    <asp:Label ID="lblDesde" runat="server" Text="Desde:"></asp:Label>
+                    <asp:TextBox ID="tbHoraI" TextMode="Time" required="" runat="server"></asp:TextBox><br />
+                    <asp:Label ID="lblHasta" runat="server" Text="Hasta:"></asp:Label>
+                    <asp:TextBox ID="tbHoraF" TextMode="Time" required="" runat="server"></asp:TextBox><br />               
+                    <asp:Button ID="btnBuscarP" runat="server" CssClass="singleButton" Text="Ver" />
                     </div>
                     <div class="container">
                         <div class="page w3-4">

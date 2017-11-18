@@ -42,12 +42,10 @@ Public Class frm_RegistrarUsuario
                     lblProcedencia2.Visible = True
                     tbProcedencia.Visible = True
                     lblProcedencia2.Text = "Nombre Dept:"
-                    tbProcedencia.Style("margin-left") = "3.4%"
                 Else
                     lblProcedencia2.Visible = True
                     tbProcedencia.Visible = True
                     lblProcedencia2.Text = "Institución:"
-                    tbProcedencia.Style("margin-left") = "5.3%"
                 End If
             Else
                 DwnLstTipoUsuario.Items.Add("Seleccione una opción")
