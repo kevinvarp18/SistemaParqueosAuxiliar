@@ -64,9 +64,8 @@ Public Class frm_AdministrarSolicitudes
                 celdaEspaciosParqueo.ID = "celdaParqueo" + contador.ToString()
 
                 Dim DwnLstParqueos As New DropDownList()
-                DwnLstParqueos.Width = 75%
+                DwnLstParqueos.CssClass = "parqueosModal"
                 DwnLstParqueos.AutoPostBack = False
-                DwnLstParqueos.Style("padding") = "0px 0px"
                 DwnLstParqueos.ID = "DwnLstParqueo" + contador.ToString()
                 If IsPostBack Then
                 Else
@@ -90,6 +89,7 @@ Public Class frm_AdministrarSolicitudes
                 btnRechazar.Text = "(Rechazar)"
                 btnRechazar.Width = 90%
                 btnRechazar.Style("color") = "#ff0000"
+                btnRechazar.Style("font-size") = "90%"
                 AddHandler btnRechazar.Click, AddressOf Me.button_Click
 
                 Dim btnAceptar As Button = New Button
@@ -97,6 +97,7 @@ Public Class frm_AdministrarSolicitudes
                 btnAceptar.Text = "(Aceptar)"
                 btnAceptar.Width = 90%
                 btnAceptar.Style("color") = "#00fe00"
+                btnAceptar.Style("font-size") = "90%"
                 AddHandler btnAceptar.Click, AddressOf Me.button_Click
 
                 celdaEspaciosParqueo.Controls.Add(DwnLstParqueos)

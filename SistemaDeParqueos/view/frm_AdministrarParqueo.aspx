@@ -22,7 +22,7 @@
             </asp:UpdatePanel>
             <asp:UpdatePanel ID="UpdatePanel3" runat="server" Visible="false">
                 <ContentTemplate>
-                    <asp:Button ID="btnCrear" runat="server" CssClass="multipleTextBox" Style="margin-top: -50%; margin-left: 40%;" OnClick="btnCrear_Click" Text="Crear" />
+                    <asp:Button ID="btnCrear" runat="server" CssClass="singleButton" OnClick="btnCrear_Click" Text="Crear" />
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
