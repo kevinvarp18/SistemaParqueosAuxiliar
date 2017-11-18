@@ -11,13 +11,13 @@
                     <asp:Label ID="lblTipoIdentificacion" runat="server" Text="Tipo ID:"></asp:Label>
                     <asp:DropDownList ID="DwnLstTipoIdentificacion" runat="server" AutoPostBack="false"></asp:DropDownList><br />
                     <asp:Label ID="lblIdentificacion" runat="server" Text="Identificación:"></asp:Label>
-                    <asp:TextBox ID="tbIdentificacion" type="text" runat="server" onkeypress="return justNumbers(event);"></asp:TextBox><br />
+                    <asp:TextBox ID="tbIdentificacion" type="text" runat="server"></asp:TextBox><br />
                     <asp:Label ID="lblNombre" runat="server" Text="Nombre:"></asp:Label>
-                    <asp:TextBox ID="tbNombre" type="text" runat="server" onkeypress="return validar(event)"></asp:TextBox><br />
+                    <asp:TextBox ID="tbNombre" type="text" runat="server"></asp:TextBox><br />
                     <asp:Label ID="lblApellidos" runat="server" Text="Apellidos:"></asp:Label>
-                    <asp:TextBox ID="tbApellidos" type="text" runat="server" onkeypress="return validar(event)"></asp:TextBox><br />
+                    <asp:TextBox ID="tbApellidos" type="text" runat="server"></asp:TextBox><br />
                     <asp:Label ID="lblTelefono" runat="server" Text="Teléfono:"></asp:Label>
-                    <asp:TextBox ID="tbTelefono" type="text" runat="server" onkeypress="return justNumbers(event);"></asp:TextBox><br />
+                    <asp:TextBox ID="tbTelefono" type="number" runat="server"></asp:TextBox><br />
                     <asp:Label ID="lblEmail" runat="server" Text="Email:"></asp:Label>
                     <asp:TextBox ID="tbEmail" type="text" runat="server"></asp:TextBox><br />
                     <asp:Label ID="lblContrasena" runat="server" Text="Contraseña:"></asp:Label>
@@ -28,14 +28,8 @@
                     <asp:DropDownList ID="DwnLstProcedencia" runat="server" AutoPostBack="true"></asp:DropDownList><br />
                     <asp:UpdatePanel ID="UpdatePanel2" runat="server" Visible="false">
                         <ContentTemplate>
-                            <asp:Label ID="lblInstitucion" runat="server" Text="Institucion:"></asp:Label>
-                            <asp:TextBox ID="tbInstitucion" type="text" runat="server" onkeypress="return validar(event)"></asp:TextBox><br />
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                    <asp:UpdatePanel ID="UpdatePanel3" runat="server" Visible="false">
-                        <ContentTemplate>
-                            <asp:Label ID="lblDept" runat="server" Text="Nombre Dept:"></asp:Label>
-                            <asp:DropDownList ID="DwnLstDept" type="text" runat="server"></asp:DropDownList><br />
+                            <asp:Label ID="lblProcedenciatb" runat="server" Text="Nombre Dept:"></asp:Label>
+                            <asp:TextBox ID="tbProcedencia" type="text" runat="server"></asp:TextBox><br />
                         </ContentTemplate>
                     </asp:UpdatePanel>
                     <asp:Button ID="btnRegistrar" runat="server" CssClass="singleTextBox" OnClick="btnRegistrar_Click" Text="Registrarse" /><br />

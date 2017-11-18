@@ -61,13 +61,15 @@ Public Class loginView
         ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "ScriptManager2", "muestraMensaje(""" + titulo + """,""" + mensaje + """,""" + tipo + """);", True)
     End Sub
     Protected Sub enviarCorreo()
-        titulo = "ERROR"
-        tipo = "error"
         If (tbUsuario.Text.Equals("")) Then
+            titulo = "ERROR"
             mensaje = "Debe completar todos los campos"
+            tipo = "error"
             ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "ScriptManager2", "muestraMensaje(""" + titulo + """,""" + mensaje + """,""" + tipo + """);", True)
         ElseIf (Not email.IsMatch(tbUsuario.Text)) Then
+            titulo = "ERROR"
             mensaje = "Ingrese una dirección de correo válida"
+            tipo = "error"
             ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "ScriptManager2", "muestraMensaje(""" + titulo + """,""" + mensaje + """,""" + tipo + """);", True)
         Else
             Dim strCorreo = tbUsuario.Text
@@ -79,7 +81,9 @@ Public Class loginView
                 mensaje = "Se ha recuperado su contraseña y enviado a su dirección de correo electrónico"
                 tipo = "success"
             Else
-                mensaje = "No hay ningún usuario registrado con ese correo electrónico"
+                titulo = "ERROR"
+                mensaje = "Los datos del usuario no existen"
+                tipo = "error"
             End If
             ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "ScriptManager2", "muestraMensaje(""" + titulo + """,""" + mensaje + """,""" + tipo + """);", True)
         End If
