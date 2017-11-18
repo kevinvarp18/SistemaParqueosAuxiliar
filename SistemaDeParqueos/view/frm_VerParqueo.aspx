@@ -14,7 +14,7 @@
                     <asp:TextBox ID="tbHoraI" TextMode="Time" required="" runat="server"></asp:TextBox><br />
                     <asp:Label ID="lblHasta" runat="server" Text="Hasta:"></asp:Label>
                     <asp:TextBox ID="tbHoraF" TextMode="Time" required="" runat="server"></asp:TextBox><br />
-                    <asp:Button ID="btnBuscarP" runat="server" CssClass="singleButton" Text="Ver" />
+                    <asp:Button ID="btnBuscarP" runat="server" CssClass="singleButton" Text="Ver"/>
                     <div class="page w3-4">
                         <div class="bs-example " data-example-id="simple-table">
                             <asp:Table ID="table" runat="server" CssClass="table">

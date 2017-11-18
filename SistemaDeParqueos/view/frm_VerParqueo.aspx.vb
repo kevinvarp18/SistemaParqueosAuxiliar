@@ -58,9 +58,9 @@ Public Class VerParqueo
             tableHeaderRow.Cells.Add(tableHeaderCell)
         Next
         table.Rows.Add(tableHeaderRow)
-        Dim tableRow As New TableRow()
+        Dim filaTabla As New TableRow()
         For rowCtr = 0 To cantidadTiposParqueo.Count - 1
-            Dim tableCell As New TableCell()
+            Dim celdaTabla As New TableCell()
             For Each parqueoActual As Parqueo In parqueosTotales
                 Dim tipoParqueo As String
                 tipoParqueo = table.Rows.Item(0).Cells.Item(rowCtr).ID
@@ -82,12 +82,12 @@ Public Class VerParqueo
                     Else
                         hyperLink.Style("color") = "#03ba03"
                     End If
-                    tableCell.Controls.Add(hyperLink)
+                    celdaTabla.Controls.Add(hyperLink)
                 End If
             Next
-            tableRow.Cells.Add(tableCell)
+            filaTabla.Cells.Add(celdaTabla)
         Next
-        table.Rows.Add(tableRow)
+        table.Rows.Add(filaTabla)
     End Sub
 
 End Class

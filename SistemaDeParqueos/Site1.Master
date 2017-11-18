@@ -47,6 +47,14 @@
 
             return /\d/.test(String.fromCharCode(keynum));
         }
+
+        function abrirModal() {
+            $('#myModal2').modal('show');
+        }
+
+        function cerrarModal() {
+            $('#myModal2').modal('hide');
+        }
     </script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
