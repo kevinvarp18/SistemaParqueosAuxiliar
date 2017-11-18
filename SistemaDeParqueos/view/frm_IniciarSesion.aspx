@@ -7,14 +7,14 @@
         <div class="container">
             <asp:UpdatePanel ID="UpdatePanel1" runat="server" Visible="true">
                 <ContentTemplate>
-                    <h3>Iniciar Sesión</h3>
-                    <asp:Label ID="lblNombre" runat="server" Text="Email:"></asp:Label>
-                    <asp:TextBox ID="tbUsuario" type="email" runat="server"></asp:TextBox><br />
-                    <asp:Label ID="lblContrasena" runat="server" Text="Contraseña:"></asp:Label>
-                    <asp:TextBox ID="tbContrasena" type="password" runat="server"></asp:TextBox><br />
-                    <asp:LinkButton ID="lblRecordar" runat="server" CssClass="recordarContrasena" OnClick="enviarCorreo">¿Olvidaste la contraseña?</asp:LinkButton>
-                    <br />
-                    <asp:Button ID="btnIngresar" runat="server" CssClass="singleButton" OnClick="btnIngresar_Click" Text="Ingresar" />
+                        <h3>Iniciar Sesión</h3>
+                        <asp:Label ID="lblNombre" runat="server" Text="Email:"></asp:Label>
+                        <asp:TextBox ID="tbUsuario" type="email" runat="server"></asp:TextBox><br />
+                        <asp:Label ID="lblContrasena" runat="server" Text="Contraseña:"></asp:Label>
+                        <asp:TextBox ID="tbContrasena" type="password" runat="server"></asp:TextBox><br />
+                        <asp:LinkButton ID="lblRecordar" runat="server" CssClass="recordarContrasena" OnClick="enviarCorreo">¿Olvidaste la contraseña?</asp:LinkButton>
+                        <br />
+                        <asp:Button ID="btnIngresar" runat="server" CssClass="singleButton" OnClick="btnIngresar_Click" Text="Ingresar" />
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>

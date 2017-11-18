@@ -579,7 +579,6 @@ agile_count_grid_left span, .agile_count_grid_right p {
     margin-left: 43%;
 }
 
-
 /*-- w3ls --*/
 footer {
     background: #000000;
@@ -1742,11 +1741,6 @@ a.read {
 /*-- //gallery --*/
 
 /*--responsive--*/
-@media (max-width:1680px) {
-}
-
-@media (max-width:1440px) {
-}
 
 @media (max-width:1366px) {
     .infoGeneral {
@@ -2501,6 +2495,20 @@ a.read {
     .infoGeneral {
         padding: 10.7em 0;
     }
+
+    .recordarContrasena {
+        margin-left: 48%;
+    }
+
+    .newsletter input[type="text"], .newsletter input[type="date"], .newsletter input[type="number"], .newsletter input[type="email"], .newsletter input[type="password"], select, .newsletter input[type="time"], .newsletter input[type="date"] {
+        width: 23%;
+        margin-left: 7%;
+    }
+
+    .newsletter span {
+        margin-left: 32%;
+        margin-top: 0.9%;
+    }
 }
 
 @media (max-width: 1024px) and (max-height: 768px) {
@@ -2617,6 +2625,11 @@ a.read {
 }
 
 @media (max-width:667px) {
+
+    .recordarContrasena {
+        margin-left: 36%;
+        margin-bottom: 4%;
+    }
 
     .infoGeneral {
         padding: 4em 0;
@@ -2917,6 +2930,20 @@ a.read {
 
 @media (max-width:568px) {
 
+    .recordarContrasena {
+        margin-left: 34%;
+    }
+
+    .newsletter input[type="text"], .newsletter input[type="date"], .newsletter input[type="number"], .newsletter input[type="email"], .newsletter input[type="password"], select, .newsletter input[type="time"], .newsletter input[type="date"] {
+        width: 20%;
+        margin-left: 11%;
+    }
+
+    .newsletter span {
+        margin-left: 29%;
+        width: 11%;
+    }
+
     .modal-dialog {
         width: 532px;
     }
@@ -3195,6 +3222,33 @@ a.read {
 }
 
 @media (max-width:414px) {
+
+    .recordarContrasena {
+        font-size: 100%;
+        margin-left: 28%;
+        margin-bottom: 4%;
+    }
+
+    .newsletter input[type="text"], .newsletter input[type="date"], .newsletter input[type="number"], .newsletter input[type="email"], .newsletter input[type="password"], select, .newsletter input[type="time"], .newsletter input[type="date"] {
+        width: 28%;
+        margin-left: 15%;
+    }
+
+    .newsletter span {
+        margin-left: 22%;
+        margin-top: 2%;
+        width: 15%;
+    }
+
+    .newsletter input[type="submit"] {
+        width: 27%;
+        margin-top: 7%;
+    }
+
+    .singleButton {
+        margin-top: 4%;
+        margin-left: 37%;
+    }
 
     .infoGeneral {
         padding: 10.5em 0;
@@ -3538,6 +3592,31 @@ a.read {
 
 @media (max-width:375px) {
 
+    .recordarContrasena {
+        font-size: 100%;
+        margin-left: 23%;
+    }
+
+    .newsletter input[type="text"], .newsletter input[type="date"], .newsletter input[type="number"], .newsletter input[type="email"], .newsletter input[type="password"], select, .newsletter input[type="time"], .newsletter input[type="date"] {
+        width: 28%;
+        margin-left: 18%;
+    }
+
+    .newsletter span {
+        margin-left: 21%;
+        width: 17%;
+    }
+
+    .newsletter input[type="submit"] {
+        width: 29%;
+        margin-top: 7%;
+    }
+
+    .singleButton {
+        margin-top: 4%;
+        margin-left: 34%;
+    }
+
     .infoGeneral {
         padding: 8.5em 0;
     }
@@ -3767,6 +3846,32 @@ a.read {
 }
 
 @media (max-width:320px) {
+
+    .recordarContrasena {
+        font-size: 95%;
+        margin-left: 19%;
+    }
+
+    .newsletter input[type="text"], .newsletter input[type="date"], .newsletter input[type="number"], .newsletter input[type="email"], .newsletter input[type="password"], select, .newsletter input[type="time"], .newsletter input[type="date"] {
+        width: 35%;
+        margin-left: 22%;
+    }
+
+    .newsletter span {
+        margin-left: 13%;
+        width: 20%;
+    }
+
+    .newsletter input[type="submit"] {
+        width: 37%;
+        margin-top: 8%;
+    }
+
+    .singleButton {
+        margin-top: 4%;
+        margin-left: 29%;
+    }
+
     .modal-dialog {
         width: 284px;
     }
