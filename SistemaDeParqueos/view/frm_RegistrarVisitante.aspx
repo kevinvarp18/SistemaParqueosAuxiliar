@@ -10,14 +10,14 @@
                     <h3>Registrarse</h3>
                     <asp:Label ID="lblTipoIdentificacion" runat="server" Text="Tipo ID:"></asp:Label>
                     <asp:DropDownList ID="DwnLstTipoIdentificacion" runat="server" AutoPostBack="false"></asp:DropDownList><br />
-                    <asp:Label ID="lblIdentificacion" runat="server" Text="Identificación:"></asp:Label>
+                    <asp:Label ID="lblIdentificacion" runat="server" Text="Identificación:" onkeypress="return justNumbers(event)"></asp:Label>
                     <asp:TextBox ID="tbIdentificacion" type="text" runat="server"></asp:TextBox><br />
-                    <asp:Label ID="lblNombre" runat="server" Text="Nombre:"></asp:Label>
+                    <asp:Label ID="lblNombre" runat="server" Text="Nombre:" onkeypress="return validar(event)"></asp:Label>
                     <asp:TextBox ID="tbNombre" type="text" runat="server"></asp:TextBox><br />
-                    <asp:Label ID="lblApellidos" runat="server" Text="Apellidos:"></asp:Label>
+                    <asp:Label ID="lblApellidos" runat="server" Text="Apellidos:" onkeypress="return validar(event)"></asp:Label>
                     <asp:TextBox ID="tbApellidos" type="text" runat="server"></asp:TextBox><br />
                     <asp:Label ID="lblTelefono" runat="server" Text="Teléfono:"></asp:Label>
-                    <asp:TextBox ID="tbTelefono" type="number" runat="server"></asp:TextBox><br />
+                    <asp:TextBox ID="tbTelefono" type="text" runat="server" onkeypress="return justNumbers(event)"></asp:TextBox><br />
                     <asp:Label ID="lblEmail" runat="server" Text="Email:"></asp:Label>
                     <asp:TextBox ID="tbEmail" type="text" runat="server"></asp:TextBox><br />
                     <asp:Label ID="lblContrasena" runat="server" Text="Contraseña:"></asp:Label>
@@ -35,7 +35,7 @@
                     <asp:UpdatePanel ID="UpdatePanel4" runat="server" Visible="false">
                         <ContentTemplate>
                             <asp:Label ID="lblInstitucion" runat="server" Text="Institucion:"></asp:Label>
-                            <asp:TextBox ID="tbInstitucion" type="text" runat="server"></asp:TextBox><br />
+                            <asp:TextBox ID="tbInstitucion" type="text" runat="server" onkeypress="return validar(event)"></asp:TextBox><br />
                         </ContentTemplate>
                     </asp:UpdatePanel>
                     <asp:Button ID="btnRegistrar" runat="server" CssClass="singleButton" OnClick="btnRegistrar_Click" Text="Registrarse" /><br />
