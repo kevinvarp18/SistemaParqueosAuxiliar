@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site1.Master" CodeBehind="frm_VerParqueo.aspx.vb" Inherits="SistemaDeParqueos.VerParqueo" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -12,15 +13,12 @@
                     <asp:Label ID="lblDesde" runat="server" Text="Desde:"></asp:Label>
                     <asp:TextBox ID="tbHoraI" TextMode="Time" required="" runat="server"></asp:TextBox><br />
                     <asp:Label ID="lblHasta" runat="server" Text="Hasta:"></asp:Label>
-                    <asp:TextBox ID="tbHoraF" TextMode="Time" required="" runat="server"></asp:TextBox><br />               
+                    <asp:TextBox ID="tbHoraF" TextMode="Time" required="" runat="server"></asp:TextBox><br />
                     <asp:Button ID="btnBuscarP" runat="server" CssClass="singleButton" Text="Ver" />
-                    </div>
-                    <div class="container">
-                        <div class="page w3-4">
-                            <div class="bs-example " data-example-id="simple-table">
-                                <asp:Table ID="table" runat="server" CssClass="table">
-                                </asp:Table>
-                            </div>
+                    <div class="page w3-4">
+                        <div class="bs-example " data-example-id="simple-table">
+                            <asp:Table ID="table" runat="server" CssClass="table">
+                            </asp:Table>
                         </div>
                     </div>
                 </ContentTemplate>

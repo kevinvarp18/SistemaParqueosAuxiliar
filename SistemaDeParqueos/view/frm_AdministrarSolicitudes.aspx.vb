@@ -8,7 +8,7 @@ Public Class frm_AdministrarSolicitudes
     Dim parqueoNegocios As SP_Parqueo_Negocios
     Dim solicitudNegocios As SP_Solicitud_Parqueo_Negocios
     Dim usuarioNegocios As SP_Usuario_Negocios
-    Shared marca, placa, horaI, horaF, fechaI, fechaF, idParqueo, correo, accion As String
+    Shared marca, placa, horaI, horaF, fechaI, fechaF, espacioParqueo, correo, accion As String
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim permitido As Boolean = False
@@ -194,7 +194,7 @@ Public Class frm_AdministrarSolicitudes
         horaF = datosSolicitud(4)
         fechaI = datosSolicitud(5)
         fechaF = datosSolicitud(6)
-        idParqueo = idParqueo
+        espacioParqueo = idParqueo
         correo = datosSolicitud(7)
         accion = datosSolicitud(8)
         Session("fila") = datosSolicitud(0)
@@ -220,16 +220,16 @@ Public Class frm_AdministrarSolicitudes
             asuntoCorreo = "Solicitud aceptada"
             mensajeCorreo = " Nos da gusto informarle que su solicitud ha sido aceptada para ingresar al parqueo "
             If (fechaI.Equals(fechaF)) Then
-                mensajeCorreo = mensajeCorreo + "el día " + fechaI + " de las " + horaI + " a las " + horaF + " en el espacio " + idParqueo + " del parqueo."
+                mensajeCorreo = mensajeCorreo + "el día " + fechaI + " de las " + horaI + " a las " + horaF + " en el espacio " + espacioParqueo + " del parqueo."
             Else
-                mensajeCorreo = mensajeCorreo + "para los días del " + fechaI + " al " + fechaF + "de " + horaI + "a " + horaF + " en el espacio " + idParqueo + " del parqueo."
+                mensajeCorreo = mensajeCorreo + "para los días del " + fechaI + " al " + fechaF + "de " + horaI + "a " + horaF + " en el espacio " + espacioParqueo + " del parqueo."
             End If
         Else
             asuntoCorreo = "Solicitud rechazada"
             mensajeCorreo = " Lamentamos informarle que su solicitud ha sido rechazada por el siguiente motivo: " + tbRetroalimentacion.Text
         End If
 
-        resultadoAccion = Me.solicitudNegocios.decidirSolicitud(marca, placa, horaI, horaF, fechaI, fechaF, idParqueo, accion)
+        resultadoAccion = Me.solicitudNegocios.decidirSolicitud(marca, placa, horaI, horaF, fechaI, fechaF, espacioParqueo, accion)
 
         If (resultadoAccion = 1 Or accion.Equals("0")) Then
             titulo = "Correcto"

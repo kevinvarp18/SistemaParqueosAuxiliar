@@ -15,6 +15,10 @@ Public Class VerParqueo
         Next
 
         If (permitido) Then
+            ScriptManager.RegisterClientScriptInclude(Me, Me.GetType(), "frm_VerParqueo", ResolveUrl("~") + "public/js/" + "script.js")
+            If Not IsPostBack Then
+                llenarTablaParqueos(DateTime.Now.ToString("dd/MM/yyyy"), "07:00", "21:00")
+            End If
         Else
             Dim url As String = HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.AbsolutePath, "")
             Response.BufferOutput = True
@@ -23,62 +27,67 @@ Public Class VerParqueo
     End Sub
 
     Protected Sub btnBuscarP_Click(sender As Object, e As EventArgs) Handles btnBuscarP.Click
-        Dim strconnectionString As String = WebConfigurationManager.ConnectionStrings("DBOIJ").ToString()
-        Dim parqueoNegocios As New SP_Parqueo_Negocios(strconnectionString)
-        Dim sn As New SP_Solicitud_Parqueo_Negocios(strconnectionString)
         Dim fechai As DateTime = Convert.ToDateTime(tbFechaI.Text)
         If tbFechaI.Text <> "" AndAlso tbHoraI.Text <> "" AndAlso tbHoraF.Text <> "" Then
+            llenarTablaParqueos(fechai, tbHoraI.Text, tbHoraF.Text)
+        Else
+            Dim titulo As String = "ERROR"
+            Dim mensaje As String = "Debe completar todos los campos"
+            Dim tipo As String = "error"
+            ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "ScriptManager2", "muestraMensaje(""" + titulo + """,""" + mensaje + """,""" + tipo + """);", True)
+        End If
+    End Sub
 
-            Dim parqueosOcupados As LinkedList(Of Parqueo) = parqueoNegocios.obtenerParqueoOcupado(fechai.ToString("dd/MM/yyyy"), tbHoraI.Text, tbHoraF.Text)
-            Dim parqueosTotales As LinkedList(Of Parqueo) = parqueoNegocios.obtenerParqueo()
-            Dim cantidadTiposParqueo As LinkedList(Of String) = parqueoNegocios.cantidadTiposParqueo()
+    Private Sub llenarTablaParqueos(fechai As DateTime, horaI As String, horaF As String)
+        Dim strconnectionString As String = WebConfigurationManager.ConnectionStrings("DBOIJ").ToString()
+        Dim parqueoNegocios As New SP_Parqueo_Negocios(strconnectionString)
+        Dim solicitudNegocios As New SP_Solicitud_Parqueo_Negocios(strconnectionString)
+        Dim parqueosOcupados As LinkedList(Of Parqueo) = parqueoNegocios.obtenerParqueoOcupado(fechai.ToString("dd/MM/yyyy"), horaI, horaF)
+        Dim parqueosTotales As LinkedList(Of Parqueo) = parqueoNegocios.obtenerParqueo()
+        Dim cantidadTiposParqueo As LinkedList(Of String) = parqueoNegocios.cantidadTiposParqueo()
 
-            Dim rowCnt As Integer
+        Dim rowCnt As Integer
 
-            rowCnt = 1
+        rowCnt = 1
 
-            Dim tableHeaderRow As New TableHeaderRow()
-            For Each tipos As String In cantidadTiposParqueo
-                Dim tableHeaderCell As New TableHeaderCell()
-                tableHeaderCell.Text = tipos
-                tableHeaderCell.ID = tipos
-                tableHeaderRow.Cells.Add(tableHeaderCell)
-            Next 'Agrega los tipos de parqueos a la primera fila.
-            table.Rows.Add(tableHeaderRow)
-            Dim tableRow As New TableRow()
-            For rowCtr = 0 To cantidadTiposParqueo.Count - 1
-                Dim tableCell As New TableCell()
-                'tableCell.Style("display") = "block"
-                'For cellCtr = 0 To 1
-                For Each parqueoActual As Parqueo In parqueosTotales
-                    Dim tipoParqueo As String
-                    tipoParqueo = table.Rows.Item(0).Cells.Item(rowCtr).ID
-                    Dim hyperLink As New HyperLink()
-                    If parqueoActual.GstrTipoSG.Equals(tipoParqueo) Then
-                        Dim ocu = False
-                        For Each parqueoOcupado As Parqueo In parqueosOcupados
-                            If parqueoActual.GintIdentificadorSG = parqueoOcupado.GintIdentificadorSG Then
-                                ocu = True
-                            End If
-                        Next 'Busca en todos los parqueos ocupados, para ver si el parqueo actual está ocupado.
-                        hyperLink.Text = String.Concat("Espacio ", parqueoActual.GintIdentificadorSG.ToString(), "<br/>", " ")
-                        hyperLink.NavigateUrl = "frm_AdministrarParqueo.aspx?id=0;" + parqueoActual.GintIdentificadorSG.ToString() + ";" + parqueoActual.GintDisponibleSG.ToString() + ";" + parqueoActual.GstrTipoSG.ToString()
-                        If parqueoActual.GintDisponibleSG = 0 Then
+        Dim tableHeaderRow As New TableHeaderRow()
+        For Each tipos As String In cantidadTiposParqueo
+            Dim tableHeaderCell As New TableHeaderCell()
+            tableHeaderCell.Text = tipos
+            tableHeaderCell.ID = tipos
+            tableHeaderRow.Cells.Add(tableHeaderCell)
+        Next
+        table.Rows.Add(tableHeaderRow)
+        Dim tableRow As New TableRow()
+        For rowCtr = 0 To cantidadTiposParqueo.Count - 1
+            Dim tableCell As New TableCell()
+            For Each parqueoActual As Parqueo In parqueosTotales
+                Dim tipoParqueo As String
+                tipoParqueo = table.Rows.Item(0).Cells.Item(rowCtr).ID
+                Dim hyperLink As New HyperLink()
+                If parqueoActual.GstrTipoSG.Equals(tipoParqueo) Then
+                    Dim ocu = False
+                    For Each parqueoOcupado As Parqueo In parqueosOcupados
+                        If parqueoActual.GintIdentificadorSG = parqueoOcupado.GintIdentificadorSG Then
                             ocu = True
                         End If
-                        If ocu = True Then
-                            hyperLink.Style("color") = "#a30404"
-                        Else
-                            hyperLink.Style("color") = "#03ba03"
-                        End If
-                        tableCell.Controls.Add(hyperLink)
+                    Next
+                    hyperLink.Text = String.Concat("Espacio ", parqueoActual.GintIdentificadorSG.ToString(), "<br/>", " ")
+                    hyperLink.NavigateUrl = "frm_AdministrarParqueo.aspx?id=0;" + parqueoActual.GintIdentificadorSG.ToString() + ";" + parqueoActual.GintDisponibleSG.ToString() + ";" + parqueoActual.GstrTipoSG.ToString()
+                    If parqueoActual.GintDisponibleSG = 0 Then
+                        ocu = True
                     End If
-                Next 'For rowCtr = 0 To rowCnt
-                'Next
-                tableRow.Cells.Add(tableCell)
-            Next 'For Each parqueosAct As Parqueo In parqueosTotales
-            table.Rows.Add(tableRow)
-        End If
+                    If ocu = True Then
+                        hyperLink.Style("color") = "#a30404"
+                    Else
+                        hyperLink.Style("color") = "#03ba03"
+                    End If
+                    tableCell.Controls.Add(hyperLink)
+                End If
+            Next
+            tableRow.Cells.Add(tableCell)
+        Next
+        table.Rows.Add(tableRow)
     End Sub
 
 End Class

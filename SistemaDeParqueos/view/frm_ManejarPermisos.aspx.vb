@@ -44,8 +44,8 @@ Public Class frm_ManejarPermisos
         For Each rolActual As RolYPermiso In roles
             For rowCtr = 1 To rowCnt
                 Dim filaTabla As New TableRow()
-                Dim columnaPermiso As New TableCell()
-                Dim columnaRol As New TableCell()
+                Dim celdaPermiso As New TableCell()
+                Dim celdaRol As New TableCell()
 
                 Dim rol As String = ""
 
@@ -57,11 +57,11 @@ Public Class frm_ManejarPermisos
                     rol = "Visitante"
                 End If
 
-                columnaPermiso.Text = rolActual.GstrPermiso1
-                columnaRol.Text = rol
+                celdaPermiso.Text = rolActual.GstrPermiso1
+                celdaRol.Text = rol
 
-                filaTabla.Cells.Add(columnaPermiso)
-                filaTabla.Cells.Add(columnaRol)
+                filaTabla.Cells.Add(celdaPermiso)
+                filaTabla.Cells.Add(celdaRol)
                 tabla.Rows.Add(filaTabla)
 
                 contador = contador + 1

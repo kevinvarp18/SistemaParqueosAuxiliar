@@ -42,26 +42,26 @@ Public Class frm_SolicitudesAtrasadas
         For Each solicitudAct As Solicitud In solicitudes
             For rowCtr = 1 To rowCnt
                 Dim filaTabla As New TableRow()
-                Dim columnaNombre As New TableCell()
-                Dim columnaPlaca As New TableCell()
-                Dim columnaMarca As New TableCell()
-                Dim columnaModelo As New TableCell()
-                Dim columnaEspacioParqueo As New TableCell()
-                Dim columnaHoraI As New TableCell()
-                Dim columnaHoraS As New TableCell()
-                Dim columnaExtension As New TableCell()
-                Dim columnaBotones As New TableCell()
+                Dim celdaNombre As New TableCell()
+                Dim celdaPlaca As New TableCell()
+                Dim celdaMarca As New TableCell()
+                Dim celdaModelo As New TableCell()
+                Dim celdaEspacioParqueo As New TableCell()
+                Dim celdaHoraI As New TableCell()
+                Dim celdaHoraS As New TableCell()
+                Dim celdaExtension As New TableCell()
+                Dim celdaBotones As New TableCell()
 
                 filaTabla.ID = "filaTabla" + contador.ToString()
-                columnaNombre.Text = solicitudAct.GstrFechaISG
-                columnaPlaca.Text = solicitudAct.GstrPlacaSG
-                columnaMarca.Text = solicitudAct.GstrMarcaSG
-                columnaModelo.Text = solicitudAct.GstrModeloSG
-                columnaEspacioParqueo.Text = solicitudAct.GintIdParqueoSG.ToString()
-                columnaHoraI.Text = solicitudAct.GstrHoraISG
-                columnaHoraS.Text = solicitudAct.GstrHoraFSG
-                columnaExtension.ID = "columnaExtension" + contador.ToString()
-                columnaBotones.ID = "columnaBotones" + contador.ToString()
+                celdaNombre.Text = solicitudAct.GstrFechaISG
+                celdaPlaca.Text = solicitudAct.GstrPlacaSG
+                celdaMarca.Text = solicitudAct.GstrMarcaSG
+                celdaModelo.Text = solicitudAct.GstrModeloSG
+                celdaEspacioParqueo.Text = solicitudAct.GintIdParqueoSG.ToString()
+                celdaHoraI.Text = solicitudAct.GstrHoraISG
+                celdaHoraS.Text = solicitudAct.GstrHoraFSG
+                celdaExtension.ID = "celdaExtension" + contador.ToString()
+                celdaBotones.ID = "celdaBotones" + contador.ToString()
 
                 Dim tbHora As New TextBox()
                 tbHora.TextMode = TextBoxMode.Time
@@ -72,36 +72,36 @@ Public Class frm_SolicitudesAtrasadas
 
                 Dim literalControl As New LiteralControl()
                 literalControl.Text = ""
-                columnaExtension.Controls.Add(literalControl)
-                columnaBotones.Controls.Add(literalControl)
+                celdaExtension.Controls.Add(literalControl)
+                celdaBotones.Controls.Add(literalControl)
 
                 Dim btnAceptar As Button = New Button
-                btnAceptar.CssClass = contador.ToString() + ";" + solicitudAct.GstrFechaFSG + ";" + solicitudAct.GstrMarcaSG + ";" + solicitudAct.GstrPlacaSG + ";" + solicitudAct.GstrModeloSG + ";" + columnaEspacioParqueo.Text + ";" + solicitudAct.GstrHoraISG + ";" + solicitudAct.GstrHoraFSG + ";1"
+                btnAceptar.CssClass = contador.ToString() + ";" + solicitudAct.GstrFechaFSG + ";" + solicitudAct.GstrMarcaSG + ";" + solicitudAct.GstrPlacaSG + ";" + solicitudAct.GstrModeloSG + ";" + celdaEspacioParqueo.Text + ";" + solicitudAct.GstrHoraISG + ";" + solicitudAct.GstrHoraFSG + ";1"
                 btnAceptar.Text = "(Extender)"
                 btnAceptar.Width = 90%
                 btnAceptar.Style("color") = "#00fe00"
                 AddHandler btnAceptar.Click, AddressOf Me.button_Click
 
                 Dim btnRechazar As Button = New Button
-                btnRechazar.CssClass = contador.ToString() + ";" + solicitudAct.GstrFechaFSG + ";" + solicitudAct.GstrMarcaSG + ";" + solicitudAct.GstrPlacaSG + ";" + solicitudAct.GstrModeloSG + ";" + columnaEspacioParqueo.Text + ";" + solicitudAct.GstrHoraISG + ";" + solicitudAct.GstrHoraFSG + ";0"
+                btnRechazar.CssClass = contador.ToString() + ";" + solicitudAct.GstrFechaFSG + ";" + solicitudAct.GstrMarcaSG + ";" + solicitudAct.GstrPlacaSG + ";" + solicitudAct.GstrModeloSG + ";" + celdaEspacioParqueo.Text + ";" + solicitudAct.GstrHoraISG + ";" + solicitudAct.GstrHoraFSG + ";0"
                 btnRechazar.Text = "(Cancelar)"
                 btnRechazar.Width = 90%
                 btnRechazar.Style("color") = "#ff0000"
                 AddHandler btnRechazar.Click, AddressOf Me.button_Click
 
-                columnaExtension.Controls.Add(tbHora)
-                columnaBotones.Controls.Add(btnAceptar)
-                columnaBotones.Controls.Add(btnRechazar)
+                celdaExtension.Controls.Add(tbHora)
+                celdaBotones.Controls.Add(btnAceptar)
+                celdaBotones.Controls.Add(btnRechazar)
 
-                filaTabla.Cells.Add(columnaNombre)
-                filaTabla.Cells.Add(columnaPlaca)
-                filaTabla.Cells.Add(columnaMarca)
-                filaTabla.Cells.Add(columnaModelo)
-                filaTabla.Cells.Add(columnaEspacioParqueo)
-                filaTabla.Cells.Add(columnaHoraI)
-                filaTabla.Cells.Add(columnaHoraS)
-                filaTabla.Cells.Add(columnaExtension)
-                filaTabla.Cells.Add(columnaBotones)
+                filaTabla.Cells.Add(celdaNombre)
+                filaTabla.Cells.Add(celdaPlaca)
+                filaTabla.Cells.Add(celdaMarca)
+                filaTabla.Cells.Add(celdaModelo)
+                filaTabla.Cells.Add(celdaEspacioParqueo)
+                filaTabla.Cells.Add(celdaHoraI)
+                filaTabla.Cells.Add(celdaHoraS)
+                filaTabla.Cells.Add(celdaExtension)
+                filaTabla.Cells.Add(celdaBotones)
                 tabla.Rows.Add(filaTabla)
 
                 contador = contador + 1
@@ -124,7 +124,7 @@ Public Class frm_SolicitudesAtrasadas
         updatePanel = DirectCast(contentPlaceHolder.FindControl("UpdatePanel1"), UpdatePanel)
         tabla = DirectCast(updatePanel.FindControl("tabla"), Table)
         fila = tabla.Rows.Item(Integer.Parse(datosSolicitud(0)))
-        columnaExtension = DirectCast(fila.FindControl("columnaExtension" + datosSolicitud(0)), TableCell)
+        columnaExtension = DirectCast(fila.FindControl("celdaExtension" + datosSolicitud(0)), TableCell)
         tbHora = DirectCast(columnaExtension.FindControl("tbHora" + datosSolicitud(0)), TextBox)
         nuevaHora = tbHora.Text
 

@@ -22,8 +22,6 @@
                     <asp:Label ID="lblModelo" runat="server" Text="Modelo:"></asp:Label>
                     <asp:TextBox ID="tbModelo" type="text" runat="server"></asp:TextBox><br />
                     <asp:Button ID="btnSolicitar" runat="server" CssClass="singleButton" OnClick="btnSolicitar_Click" Text="Solicitar" />
-                    <br />
-                    <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>

@@ -23,15 +23,12 @@ Public Class frm_SolicitarParqueo
     End Sub
 
     Protected Sub btnSolicitar_Click(sender As Object, e As EventArgs) Handles btnSolicitar.Click
-        Dim titulo, mensaje, tipo As String
-        Dim tbPlaca_ As String = Trim(tbPlaca.Text)
-        Dim tbMarca_ As String = Trim(tbMarca.Text)
-        Dim tbModelo_ As String = Trim(tbModelo.Text)
+        Dim titulo As String = "ERROR"
+        Dim mensaje As String
+        Dim tipo As String = "error"
 
-        If (tbPlaca_.Equals("") Or tbMarca_.Equals("") Or tbModelo_.Equals("")) Then
-            titulo = "ERROR"
+        If (tbPlaca.Text.Equals("") Or tbMarca.Text.Equals("") Or tbModelo.Text.Equals("")) Then
             mensaje = "Debe completar todos los campos"
-            tipo = "error"
         Else
             Dim strconnectionString As String = WebConfigurationManager.ConnectionStrings("DBOIJ").ToString()
             Dim solicitudNegocios As New SP_Solicitud_Parqueo_Negocios(strconnectionString)
@@ -43,23 +40,18 @@ Public Class frm_SolicitarParqueo
                 titulo = "Correcto"
                 mensaje = "La solicitud se ha enviado exitosamente"
                 tipo = "success"
+                tbFechaE.Text = ""
+                tbFechaS.Text = ""
+                tbHoraE.Text = ""
+                tbHoraS.Text = ""
+                tbPlaca.Text = ""
+                tbModelo.Text = ""
+                tbMarca.Text = ""
+                tbModelo.Text = ""
             Else
-                titulo = "ERROR"
                 mensaje = "Debe completar todos los campos"
-                tipo = "error"
             End If
-
-            tbFechaE.Text = ""
-            tbFechaS.Text = ""
-            tbHoraE.Text = ""
-            tbHoraS.Text = ""
-            tbPlaca.Text = ""
-            tbModelo.Text = ""
-            tbMarca.Text = ""
-            tbModelo.Text = ""
         End If
-
         ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "ScriptManager2", "muestraMensaje(""" + titulo + """,""" + mensaje + """,""" + tipo + """);", True)
-
     End Sub
 End Class

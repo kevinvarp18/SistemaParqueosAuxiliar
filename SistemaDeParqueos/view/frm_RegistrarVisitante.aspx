@@ -26,10 +26,16 @@
                     <asp:TextBox ID="tbUbicacion" type="text" runat="server"></asp:TextBox><br />
                     <asp:Label ID="lblProcedenciaDwnLst" runat="server" Text="Procedencia:"></asp:Label>
                     <asp:DropDownList ID="DwnLstProcedencia" runat="server" AutoPostBack="true"></asp:DropDownList><br />
-                    <asp:UpdatePanel ID="UpdatePanel2" runat="server" Visible="false">
+                    <asp:UpdatePanel ID="UpdatePanel3" runat="server" Visible="false">
                         <ContentTemplate>
-                            <asp:Label ID="lblProcedenciatb" runat="server" Text="Nombre Dept:"></asp:Label>
-                            <asp:TextBox ID="tbProcedencia" type="text" runat="server"></asp:TextBox><br />
+                            <asp:Label ID="lblDepartamento" runat="server" Text="Nombre Dept:"></asp:Label>
+                            <asp:DropDownList ID="DwnLstDepartamento" type="text" runat="server"></asp:DropDownList><br />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                    <asp:UpdatePanel ID="UpdatePanel4" runat="server" Visible="false">
+                        <ContentTemplate>
+                            <asp:Label ID="lblInstitucion" runat="server" Text="Institucion:"></asp:Label>
+                            <asp:TextBox ID="tbInstitucion" type="text" runat="server"></asp:TextBox><br />
                         </ContentTemplate>
                     </asp:UpdatePanel>
                     <asp:Button ID="btnRegistrar" runat="server" CssClass="singleButton" OnClick="btnRegistrar_Click" Text="Registrarse" /><br />

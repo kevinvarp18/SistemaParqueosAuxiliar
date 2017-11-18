@@ -23,6 +23,15 @@ Public Class registrarVisitante
                 DwnLstTipoIdentificacion.Items.Add("Numero de Cedula")
                 DwnLstTipoIdentificacion.Items.Add("Pasaporte")
                 DwnLstTipoIdentificacion.Items.Add("Licencia de conducir")
+
+                DwnLstDepartamento.Items.Add("Seleccione una opción")
+                DwnLstDepartamento.Items.Add("Jefatura")
+                DwnLstDepartamento.Items.Add("PIP")
+                DwnLstDepartamento.Items.Add("UPRO")
+                DwnLstDepartamento.Items.Add("OPO")
+                DwnLstDepartamento.Items.Add("SERT")
+                DwnLstDepartamento.Items.Add("UPROV")
+                DwnLstDepartamento.Items.Add("UVISE")
             Else
                 Dim contentPlaceHolder As ContentPlaceHolder
                 Dim updatePanel As UpdatePanel
@@ -30,15 +39,14 @@ Public Class registrarVisitante
                 updatePanel = DirectCast(contentPlaceHolder.FindControl("UpdatePanel2"), UpdatePanel)
 
                 If (DwnLstProcedencia.SelectedItem.ToString().Equals("Seleccione una opción")) Then
-                    updatePanel.Visible = False
+                    UpdatePanel3.Visible = False
+                    UpdatePanel4.Visible = False
                 ElseIf (DwnLstProcedencia.SelectedItem.ToString().Equals("Interno")) Then
-                    updatePanel.Visible = True
-                    lblProcedenciatb.Text = "Nombre Dept:"
-                    tbProcedencia.Style("margin-left") = "3.9%"
+                    UpdatePanel3.Visible = True
+                    UpdatePanel4.Visible = False
                 Else
-                    updatePanel.Visible = True
-                    lblProcedenciatb.Text = "Institución:"
-                    tbProcedencia.Style("margin-left") = "5.7%"
+                    UpdatePanel3.Visible = False
+                    UpdatePanel4.Visible = True
                 End If
             End If
         Else
@@ -49,41 +57,29 @@ Public Class registrarVisitante
     End Sub
 
     Protected Sub btnRegistrar_Click(sender As Object, e As EventArgs) Handles btnRegistrar.Click
-        Dim titulo, mensaje, tipo As String
+        Dim titulo As String = "ERROR"
+        Dim mensaje As String
+        Dim tipo As String = "error"
         Dim tipoVisitante As String
-        Dim tbIdentificacion_ As String = Trim(tbIdentificacion.Text)
-        Dim tbNombre_ As String = Trim(tbNombre.Text)
-        Dim tbApellidos_ As String = Trim(tbApellidos.Text)
-        Dim tbTelefono_ As String = Trim(tbTelefono.Text)
-        Dim tbEmail_ As String = Trim(tbEmail.Text)
-        Dim tbContrasena_ As String = Trim(tbContrasena.Text)
-        Dim tbUbicacion_ As String = Trim(tbUbicacion.Text)
-        Dim tbProcedencia_ As String = Trim(tbProcedencia.Text)
         Dim email As New Regex("([\w-+]+(?:\.[\w-+]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7})")
+        Dim resultado As Integer
 
-        If (tbIdentificacion_.Equals("") Or tbNombre_.Equals("") Or tbApellidos_.Equals("") Or tbTelefono_.Equals("") Or tbEmail_.Equals("") Or
-            tbContrasena_.Equals("") Or tbUbicacion_.Equals("") Or tbProcedencia_.Equals("") Or
+        If (tbIdentificacion.Text.Equals("") Or tbNombre.Text.Equals("") Or tbApellidos.Text.Equals("") Or
+            tbTelefono.Text.Equals("") Or tbEmail.Text.Equals("") Or tbContrasena.Text.Equals("") Or
+            tbUbicacion.Text.Equals("") Or (tbInstitucion.Text.Equals("") And DwnLstDepartamento.SelectedItem.ToString.Equals("Seleccione una opción")) Or
             DwnLstTipoIdentificacion.SelectedItem.ToString().Equals("Seleccione una opción") Or
             DwnLstProcedencia.SelectedItem.ToString().Equals("Seleccione una opción")) Then
-
-            titulo = "ERROR"
             mensaje = "Debe completar todos los campos"
-            tipo = "error"
-
-        ElseIf (Not email.IsMatch(tbEmail_)) Then
-            titulo = "ERROR"
+        ElseIf (Not email.IsMatch(tbEmail.Text)) Then
             mensaje = "Ingrese una dirección de correo válida"
-            tipo = "error"
         Else
             If (DwnLstProcedencia.SelectedItem.ToString().Equals("Externo")) Then
                 tipoVisitante = "Externo"
+                resultado = Me.usuarioNegocios.insertarVisitante(New Visitante(tbIdentificacion.Text, tbNombre.Text, tbApellidos.Text, tbEmail.Text, tbContrasena.Text, DwnLstTipoIdentificacion.SelectedItem.ToString(), "v", Integer.Parse(tbTelefono.Text), tbUbicacion.Text, tipoVisitante, tbInstitucion.Text))
             Else
                 tipoVisitante = "Interno"
+                resultado = Me.usuarioNegocios.insertarVisitante(New Visitante(tbIdentificacion.Text, tbNombre.Text, tbApellidos.Text, tbEmail.Text, tbContrasena.Text, DwnLstTipoIdentificacion.SelectedItem.ToString(), "v", Integer.Parse(tbTelefono.Text), tbUbicacion.Text, tipoVisitante, DwnLstDepartamento.SelectedItem.Text))
             End If
-
-            Dim resultado As Integer = Me.usuarioNegocios.insertarVisitante(New Visitante(tbIdentificacion.Text, tbNombre.Text, tbApellidos.Text, tbEmail.Text,
-            tbContrasena.Text, DwnLstTipoIdentificacion.SelectedItem.ToString(), "v",
-            Integer.Parse(tbTelefono.Text), tbUbicacion.Text, tipoVisitante, tbProcedencia.Text))
 
             If (resultado = 1) Then
                 titulo = "Correcto"
@@ -97,13 +93,12 @@ Public Class registrarVisitante
                 tbEmail.Text = ""
                 tbContrasena.Text = ""
                 tbUbicacion.Text = ""
-                tbProcedencia.Text = ""
+                tbInstitucion.Text = ""
                 DwnLstProcedencia.SelectedIndex = 0
                 DwnLstTipoIdentificacion.SelectedIndex = 0
+                DwnLstDepartamento.SelectedIndex = 0
             Else
-                titulo = "Error"
                 mensaje = "Ese correo ya existe en el sistema"
-                tipo = "error"
             End If
         End If
 
