@@ -9,8 +9,8 @@ Imports System.IO
 Public Class frm_Reporte
     Inherits System.Web.UI.Page
 
-    Dim lista As ArrayList = New ArrayList
-    Dim str As String = ""
+    Dim cadena As String
+    Shared tipoReporte As String = ""
     Dim listaDatos As New LinkedList(Of String)
     Dim listaUsuarios As New LinkedList(Of Usuario)
 
@@ -30,16 +30,18 @@ Public Class frm_Reporte
             Dim solicitudNegocios As New SP_Solicitud_Parqueo_Negocios(strconnectionString)
 
             If IsPostBack Then
-                Me.lista = Me.lista
-                Me.str = Me.str
+                Me.cadena = Me.cadena
 
                 Dim contentPlaceHolder As ContentPlaceHolder = DirectCast(Page.Master.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
                 Dim updatePanelTipo As UpdatePanel = DirectCast(contentPlaceHolder.FindControl("UpdatePanel2"), UpdatePanel)
                 Dim updatePanelFechas As UpdatePanel = DirectCast(contentPlaceHolder.FindControl("UpdatePanel3"), UpdatePanel)
                 updatePanelFechas.Visible = False
                 updatePanelTipo.Visible = True
-                DwnLstDatos.Items.Clear()
-                DwnLstDatos.Items.Add("Seleccione una opción")
+
+                If (tipoReporte.Equals("") Or (Not tipoReporte.Equals(DwnLstTipoReporte.SelectedItem.ToString()))) Then
+                    DwnLstDatos.Items.Clear()
+                    DwnLstDatos.Items.Add("Seleccione una opción")
+                End If
 
                 If (DwnLstTipoReporte.SelectedItem.ToString().Equals("Placa")) Then
                     lblTipoEscogido.Text = "Placa:"
@@ -47,15 +49,19 @@ Public Class frm_Reporte
                 ElseIf (DwnLstTipoReporte.SelectedItem.ToString().Equals("Correo")) Then
                     lblTipoEscogido.Text = "Correo:"
                     listaUsuarios = usuarioNegocios.obtenerCorreoUsuariosVisitantes()
-                    For Each datosUsuario As Usuario In listaUsuarios
-                        DwnLstDatos.Items.Add(datosUsuario.GstrCorreoSG)
-                    Next
-                ElseIf (DwnLstTipoReporte.SelectedItem.ToString().Equals("Nombre")) Then
-                    lblTipoEscogido.Text = "Nombre"
+                    If (DwnLstDatos.Items.Count = 1) Then
+                        For Each datosUsuario As Usuario In listaUsuarios
+                            DwnLstDatos.Items.Add(datosUsuario.GstrCorreoSG)
+                        Next
+                    End If
+                ElseIf (DwnLstTipoReporte.SelectedItem.ToString().Equals("Cedula")) Then
+                    lblTipoEscogido.Text = "Cedula"
                     listaUsuarios = solicitudNegocios.ObtenerCedulasYNombres()
-                    For Each datosUsuario As Usuario In listaUsuarios
-                        DwnLstDatos.Items.Add(datosUsuario.GstrIdSG + " - " + datosUsuario.GstrNombreSG + " " + datosUsuario.GstrApellidoSG)
-                    Next
+                    If (DwnLstDatos.Items.Count = 1) Then
+                        For Each datosUsuario As Usuario In listaUsuarios
+                            DwnLstDatos.Items.Add(datosUsuario.GstrIdSG + " - " + datosUsuario.GstrNombreSG + " " + datosUsuario.GstrApellidoSG)
+                        Next
+                    End If
                 ElseIf (DwnLstTipoReporte.SelectedItem.ToString().Equals("Fecha")) Then
                     updatePanelTipo.Visible = False
                     updatePanelFechas.Visible = True
@@ -70,17 +76,18 @@ Public Class frm_Reporte
                     updatePanelFechas.Visible = False
                 End If
 
+                If (DwnLstDatos.Items.Count = 1) Then
+                    For Each datos As String In listaDatos
+                        DwnLstDatos.Items.Add(datos)
+                    Next
+                End If
 
-                For Each datos As String In listaDatos
-                    DwnLstDatos.Items.Add(datos)
-                Next
+                tipoReporte = DwnLstTipoReporte.SelectedItem.Text
             Else
-                Me.lista = New ArrayList
-                Me.str = ""
-
+                Me.cadena = ""
                 DwnLstTipoReporte.Items.Add("Seleccione una opción")
                 DwnLstTipoReporte.Items.Add("Placa")
-                DwnLstTipoReporte.Items.Add("Nombre")
+                DwnLstTipoReporte.Items.Add("Cedula")
                 DwnLstTipoReporte.Items.Add("Correo")
                 DwnLstTipoReporte.Items.Add("Institucion")
                 DwnLstTipoReporte.Items.Add("Departamento")
@@ -142,134 +149,91 @@ Public Class frm_Reporte
             Dim file As New FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.ReadWrite)
             PdfWriter.GetInstance(doc, file)
             doc.Open()
-            ExportarDatosPDF(doc, Me.str, selecciones("pdf"))
+            ExportarDatosPDF(doc, Me.cadena, selecciones("pdf"))
             doc.Close()
             Process.Start(filename)
         Catch ex As Exception
         End Try
     End Sub
     Public Function selecciones(accion As String) As LinkedList(Of Solicitud)
-        'Dim strconnectionString As String = WebConfigurationManager.ConnectionStrings("DBOIJ").ToString()
-        'Dim parqueoNegocios As New SP_Parqueo_Negocios(strconnectionString)
-        'Dim titulo As String = "ERROR"
-        'Dim mensaje As String = "Ha ocurrido un error"
-        'Dim tipo As String = "error"
-        'Dim solicitudNegocios As New SP_Solicitud_Parqueo_Negocios(strconnectionString)
-        'Dim solicitudes As LinkedList(Of Solicitud)
-        'Dim faltanDatos As Boolean = True
+        Dim strconnectionString As String = WebConfigurationManager.ConnectionStrings("DBOIJ").ToString()
+        Dim parqueoNegocios As New SP_Parqueo_Negocios(strconnectionString)
+        Dim mensaje, reporteSeleccionado As String
+        Dim solicitudNegocios As New SP_Solicitud_Parqueo_Negocios(strconnectionString)
+        Dim solicitudes As LinkedList(Of Solicitud)
+        Dim faltanDatos As Boolean = True
+        Dim titulo As String = "ERROR"
+        Dim tipo As String = "error"
 
-        'If DwnLstTipoReporte.SelectedItem.ToString().Equals("Seleccione una opción") Then
-        '    titulo = "Incompleto"
-        '    mensaje = "Debe seleccionar un tipo de reporte"
-        '    tipo = "warning"
-        '    faltanDatos = True
-        'ElseIf tbFechaI.Text <> "" AndAlso tbFechaF.Text <> "" AndAlso DwnLstTipoReporte.SelectedItem.ToString().Equals("Fecha") Then
-        '    If (tbFechaI.Text <= tbFechaF.Text) Then
-        '        solicitudes = solicitudNegocios.obtenerReporte(tbFechaI.Text, tbFechaF.Text)
+        If (DwnLstTipoReporte.SelectedItem.ToString().Equals("Seleccione una opción")) Then
+            titulo = "INCOMPLETO"
+            mensaje = "Debe seleccionar un tipo de reporte"
+            tipo = "warning"
+        ElseIf (tbFechaI.Text <> "" AndAlso tbFechaF.Text <> "" AndAlso DwnLstTipoReporte.SelectedItem.ToString().Equals("Fecha")) Then
+            If (tbFechaI.Text <= tbFechaF.Text) Then
+                solicitudes = solicitudNegocios.obtenerReporte(tbFechaI.Text, tbFechaF.Text)
 
-        '        If solicitudes.Count.Equals(0) Then
-        '            titulo = "Vacio"
-        '            mensaje = "No se encontraron datos para las fecha seleccionadas"
-        '            tipo = "info"
-        '            faltanDatos = True
-        '        Else
-        '            If accion.Equals("reporte") Then
-        '                Me.construyeTabla(solicitudes)
-        '            End If
-        '            faltanDatos = False
-        '        End If
-        '    Else
-        '        titulo = "ERROR"
-        '        mensaje = "La fecha de salida debe ser mayor a la fecha de entrada"
-        '        tipo = "error"
-        '        faltanDatos = True
-        '    End If
-        'ElseIf (Not DwnLstDatos.SelectedItem.ToString().Equals("Seleccione una opción")) AndAlso DwnLstTipoReporte.SelectedItem.ToString().Equals("Placa") Then
-        '    solicitudes = solicitudNegocios.obtenerReportePlaca(DwnLstDatos.SelectedItem.ToString())
-        '    If solicitudes.Count.Equals(0) Then
-        '        titulo = "Vacio"
-        '        mensaje = "No se encontraron datos para la placa seleccionada"
-        '        tipo = "info"
-        '        faltanDatos = True
-        '    Else
-        '        If accion.Equals("reporte") Then
-        '            Me.construyeTabla(solicitudes)
-        '        End If
-        '        faltanDatos = False
-        '    End If
-        'ElseIf (Not DwnLstNombre.SelectedItem.ToString().Equals("Seleccione una opción")) AndAlso DwnLstTipoReporte.SelectedItem.ToString().Equals("Nombre") Then
-        '    solicitudes = solicitudNegocios.obtenerReporteCedula(DwnLstNombre.SelectedItem.ToString())
-        '    If solicitudes.Count.Equals(0) Then
-        '        titulo = "Vacio"
-        '        mensaje = "No se encontraron datos para el usuario seleccionado"
-        '        tipo = "info"
-        '        faltanDatos = True
-        '    Else
-        '        If accion.Equals("reporte") Then
-        '            Me.construyeTabla(solicitudes)
-        '        End If
-        '        faltanDatos = False
-        '    End If
-        'ElseIf (Not DwnLstInstitucion.SelectedItem.ToString().Equals("Seleccione una opción")) AndAlso DwnLstTipoReporte.SelectedItem.ToString().Equals("Institucion") Then
-        '    solicitudes = solicitudNegocios.obtenerReporteInstitucion(DwnLstInstitucion.SelectedItem.ToString())
-        '    If solicitudes.Count.Equals(0) Then
-        '        titulo = "Vacio"
-        '        mensaje = "No se encontraron datos para el usuario seleccionado"
-        '        tipo = "info"
-        '        faltanDatos = True
-        '    Else
-        '        If accion.Equals("reporte") Then
-        '            Me.construyeTabla(solicitudes)
-        '        End If
-        '        faltanDatos = False
-        '    End If
-        'ElseIf (Not DwnLstDepartamento.SelectedItem.ToString().Equals("Seleccione una opción")) AndAlso DwnLstTipoReporte.SelectedItem.ToString().Equals("Departamento") Then
-        '    solicitudes = solicitudNegocios.obtenerReporteDepartamento(DwnLstDepartamento.SelectedItem.ToString())
-        '    If solicitudes.Count.Equals(0) Then
-        '        titulo = "Vacio"
-        '        mensaje = "No se encontraron datos para el usuario seleccionado"
-        '        tipo = "info"
-        '        faltanDatos = True
-        '    Else
-        '        If accion.Equals("reporte") Then
-        '            Me.construyeTabla(solicitudes)
-        '        End If
-        '        faltanDatos = False
-        '    End If
-        'ElseIf (Not DwnLstCorreo.SelectedItem.ToString().Equals("Seleccione una opción")) AndAlso DwnLstTipoReporte.SelectedItem.ToString().Equals("Correo") Then
-        '    solicitudes = solicitudNegocios.obtenerReporteCorreo(DwnLstCorreo.SelectedItem.ToString())
-        '    If solicitudes.Count.Equals(0) Then
-        '        titulo = "Vacio"
-        '        mensaje = "No se encontraron entradas para el correo seleccionado"
-        '        tipo = "info"
-        '        faltanDatos = True
-        '    Else
-        '        If accion.Equals("reporte") Then
-        '            Me.construyeTabla(solicitudes)
-        '        End If
-        '        faltanDatos = False
-        '    End If
-        'Else
-        '    titulo = "Incompleto"
-        '    mensaje = "Debe completar todos los campos"
-        '    tipo = "warning"
-        '    faltanDatos = True
-        'End If
+                If solicitudes.Count.Equals(0) Then
+                    titulo = "VACIO"
+                    mensaje = "No se encontraron datos para las fecha seleccionadas"
+                    tipo = "info"
+                Else
+                    If accion.Equals("reporte") Then
+                        Me.construyeTabla(solicitudes)
+                    End If
+                    faltanDatos = False
+                End If
+            Else
+                mensaje = "La fecha de salida debe ser mayor a la fecha de ingreso"
+            End If
+        ElseIf (Not DwnLstDatos.SelectedItem.ToString().Equals("Seleccione una opción")) Then
+            reporteSeleccionado = DwnLstTipoReporte.SelectedItem.ToString().ToLower()
 
-        'If faltanDatos Then
-        '    ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "ScriptManager2", "muestraMensaje(""" + titulo + """,""" + mensaje + """,""" + tipo + """);", True)
-        'End If
+            Select Case reporteSeleccionado
+                Case "placa"
+                    solicitudes = solicitudNegocios.obtenerReportePlaca(DwnLstDatos.SelectedItem.ToString())
+                    Exit Select
+                Case "cedula"
+                    Dim cedula As String() = DwnLstDatos.SelectedItem.ToString().Split(New String() {" "}, StringSplitOptions.None)
+                    solicitudes = solicitudNegocios.obtenerReporteCedula(cedula(0))
+                    Exit Select
+                Case "correo"
+                    solicitudes = solicitudNegocios.obtenerReporteCorreo(DwnLstDatos.SelectedItem.ToString())
+                    Exit Select
+                Case "institucion"
+                    solicitudes = solicitudNegocios.obtenerReporteInstitucion(DwnLstDatos.SelectedItem.ToString())
+                    Exit Select
+                Case "departamento"
+                    solicitudes = solicitudNegocios.obtenerReporteDepartamento(DwnLstDatos.SelectedItem.ToString())
+                    Exit Select
+            End Select
 
+            If solicitudes.Count.Equals(0) Then
+                titulo = "VACIO"
+                mensaje = "No se encontraron datos para realizar el reporte"
+                tipo = "info"
+            Else
+                If accion.Equals("reporte") Then
+                    Me.construyeTabla(solicitudes)
+                End If
+                faltanDatos = False
+            End If
+        Else
+            titulo = "INCOMPLETO"
+            mensaje = "Debe completar todos los campos"
+            tipo = "warning"
+        End If
 
-        'Label1.Text = String.Join("", Me.lista.ToArray()).ToString
-
-        'Return solicitudes
+        If (faltanDatos) Then
+            ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "ScriptManager2", "muestraMensaje(""" + titulo + """,""" + mensaje + """,""" + tipo + """);", True)
+        End If
+        Return solicitudes
     End Function
     Public Sub ExportarDatosPDF(ByVal document As Document, ByVal str As String, solicitudes As LinkedList(Of Solicitud))
         Dim fuente As iTextSharp.text.pdf.BaseFont
-        fuente = FontFactory.GetFont(FontFactory.HELVETICA, iTextSharp.text.Font.DEFAULTSIZE, iTextSharp.text.Font.NORMAL).BaseFont
         Dim strContent As String = str
         Dim parsedHtmlElements As List(Of IElement)
+        fuente = FontFactory.GetFont(FontFactory.HELVETICA, iTextSharp.text.Font.DEFAULTSIZE, iTextSharp.text.Font.NORMAL).BaseFont
         Dim llenar As String = "
         <div><h1> Reporte de Parqueo</h1></div>
                    <table BORDER ='1' >
@@ -285,7 +249,7 @@ Public Class frm_Reporte
         '           </tr>"
 
         For Each solicitudAct As Solicitud In solicitudes
-            llenar += "<tr>" + "<td>" + solicitudAct.GstrMarcaSG + "</td>" + "<td>" + " " + "</td>" + "<td>" + solicitudAct.GstrPlacaSG +
+            llenar += "<tr>" + "<td>" + solicitudAct.GstrMarcaSG + "</td>" + "<td>" + solicitudAct.GstrModeloSG + "</td>" + "<td>" + solicitudAct.GstrPlacaSG +
             "</td>" + "<td>" + solicitudAct.GstrFechaISG.Substring(0, 10) + "</td>" + "<td>" + solicitudAct.GstrHoraISG + "</td>" + "<td>" + solicitudAct.GstrFechaFSG.Substring(0, 10) + "</td>" + "<td>" + solicitudAct.GstrHoraFSG + "</td>" + "<td>" + solicitudAct.GintIdParqueoSG.ToString() + "</td>" + "</tr>"
         Next
 

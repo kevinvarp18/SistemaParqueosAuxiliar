@@ -212,22 +212,58 @@ Partial Public Class frm_RegistrarUsuario
     Protected WithEvents DwnLstProcedencia As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''lblProcedencia2 control.
+    '''UpdatePanel3 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblProcedencia2 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents UpdatePanel3 As Global.System.Web.UI.UpdatePanel
     
     '''<summary>
-    '''tbProcedencia control.
+    '''lblDepartamento control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents tbProcedencia As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents lblDepartamento As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''DwnLstDepartamento control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents DwnLstDepartamento As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''UpdatePanel4 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel4 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''lblInstitucion control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblInstitucion As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''tbInstitucion control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tbInstitucion As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''btnRegistrar control.

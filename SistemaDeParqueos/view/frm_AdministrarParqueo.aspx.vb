@@ -7,7 +7,6 @@ Public Class administrarParqueo
 
     Public gintParqueoIdentificador As Long
     Public gstrParqueoSelecion As String
-
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         Dim permitido As Boolean = False
@@ -23,34 +22,27 @@ Public Class administrarParqueo
             ScriptManager.RegisterClientScriptInclude(Me, Me.GetType(), "frm_AdministrarParqueo", ResolveUrl("~") + "public/js/" + "script.js")
 
             Dim contentPlaceHolder As ContentPlaceHolder
-            Dim updatePanel As UpdatePanel
-            contentPlaceHolder = DirectCast(Page.Master.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
-            updatePanel = DirectCast(contentPlaceHolder.FindControl("UpdatePanel2"), UpdatePanel)
-
-            Dim updatePanel2 As UpdatePanel
-            updatePanel2 = DirectCast(contentPlaceHolder.FindControl("UpdatePanel3"), UpdatePanel)
-
+            Dim updatePanel2, updatePanel3 As UpdatePanel
             Dim parqueoNegocios As New SP_Parqueo_Negocios(connectionString)
-            Dim idPagina As String
-            Dim intIDparqueo As String
-            Dim strEstadoP As String
-            Dim strtipoParqueo As String
+            Dim intIDparqueo, strEstadoP, strtipoParqueo As String
+            contentPlaceHolder = DirectCast(Page.Master.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
+            updatePanel2 = DirectCast(contentPlaceHolder.FindControl("UpdatePanel2"), UpdatePanel)
+            updatePanel3 = DirectCast(contentPlaceHolder.FindControl("UpdatePanel3"), UpdatePanel)
+            Dim idPagina As String = Request.QueryString("id")
+            Dim datosSolicitud As String() = idPagina.Split(New String() {";"}, StringSplitOptions.None)
+            idPagina = datosSolicitud(0)
+
             If IsPostBack Then
-                idPagina = Request.QueryString("id")
-                Dim datosSolicitud As String() = idPagina.Split(New String() {";"}, StringSplitOptions.None)
-                idPagina = datosSolicitud(0)
                 Dim parqueo As LinkedList(Of Parqueo) = parqueoNegocios.obtenerParqueo()
+
                 If (idPagina.Equals("0")) Then
-                    updatePanel.Visible = True
+                    updatePanel2.Visible = True
+                    updatePanel3.Visible = False
                     intIDparqueo = datosSolicitud(1)
-                    If (idPagina.Equals("1")) Then
-                        updatePanel.Visible = False
-                        updatePanel2.Visible = True
-                    ElseIf (idPagina.Equals("0")) Then
-                        updatePanel.Visible = True
-                        updatePanel2.Visible = False
-                    End If
                     Me.gintParqueoIdentificador = Long.Parse(intIDparqueo)
+                ElseIf (idPagina.Equals("1")) Then
+                    updatePanel2.Visible = False
+                    updatePanel3.Visible = True
                 End If
             Else
                 DwnLstTipos.Items.Clear()
@@ -67,19 +59,16 @@ Public Class administrarParqueo
                 DwnLstEstado.Items.Add("Seleccione una opción")
                 DwnLstEstado.Items.Add("Habilitado")
                 DwnLstEstado.Items.Add("Deshabilitado")
-                idPagina = Request.QueryString("id")
-                Dim datosSolicitud As String() = idPagina.Split(New String() {";"}, StringSplitOptions.None)
-                idPagina = datosSolicitud(0)
+
                 If (idPagina.Equals("1")) Then
-                    updatePanel.Visible = False
-                    updatePanel2.Visible = True
-                ElseIf (idPagina.Equals("0")) Then
-                    updatePanel.Visible = True
                     updatePanel2.Visible = False
+                    updatePanel3.Visible = True
+                ElseIf (idPagina.Equals("0")) Then
+                    updatePanel2.Visible = True
+                    updatePanel3.Visible = False
                     intIDparqueo = datosSolicitud(1)
                     Me.gintParqueoIdentificador = Long.Parse(intIDparqueo)
-                    strEstadoP = datosSolicitud(2)
-                    If strEstadoP.Equals("True") Then
+                    If (datosSolicitud(2).Equals("True")) Then
                         strEstadoP = "Habilitado"
                         DwnLstEstado.Items.Remove("Habilitado")
                     Else
@@ -98,17 +87,14 @@ Public Class administrarParqueo
             Response.Redirect(url & Convert.ToString("/view/frm_index.aspx"))
         End If
     End Sub
-
     Protected Sub btnCrear_Click(sender As Object, e As EventArgs) Handles btnCrear.Click
         Dim titulo, mensaje, tipo As String
 
         If (DwnLstTipos.SelectedItem.ToString.Equals("Seleccione una opción") Or
             DwnLstEstado.SelectedItem.ToString.Equals("Seleccione una opción")) Then
-
             titulo = "ERROR"
             mensaje = "Debe completar todos los campos"
             tipo = "error"
-
         Else
             Dim Blnestado As Byte = 0
             Dim strconnectionString As String = WebConfigurationManager.ConnectionStrings("DBOIJ").ToString()
@@ -117,29 +103,22 @@ Public Class administrarParqueo
                 Blnestado = 1
             End If
             parqueoNegocios.insertarParqueo(New Parqueo(0, Blnestado, DwnLstTipos.Text))
-
             titulo = "Correcto"
             mensaje = "Se ha creado el parqueo exitosamente"
             tipo = "success"
-
         End If
         ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "ScriptManager2", "muestraMensaje(""" + titulo + """,""" + mensaje + """,""" + tipo + """);", True)
     End Sub
-
     Protected Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
         Dim titulo, mensaje, tipo As String
         Dim Blnestado As Byte = 0
 
         If (DwnLstTipos.SelectedItem.ToString.Equals("Seleccione una opción") Or
             DwnLstEstado.SelectedItem.ToString.Equals("Seleccione una opción")) Then
-
             titulo = "ERROR"
             mensaje = "Debe completar todos los campos"
             tipo = "error"
-
         Else
-
-
             Dim strconnectionString As String = WebConfigurationManager.ConnectionStrings("DBOIJ").ToString()
             Dim parqueoNegocios As New SP_Parqueo_Negocios(strconnectionString)
             If (DwnLstEstado.Text.Equals("Habilitado")) Then
@@ -154,19 +133,15 @@ Public Class administrarParqueo
 
         ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "ScriptManager2", "muestraMensaje(""" + titulo + """,""" + mensaje + """,""" + tipo + """);", True)
     End Sub
-
     Protected Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
         Dim titulo, mensaje, tipo As String
 
         If (DwnLstTipos.SelectedItem.ToString.Equals("Seleccione una opción") Or
             DwnLstEstado.SelectedItem.ToString.Equals("Seleccione una opción")) Then
-
             titulo = "ERROR"
             mensaje = "Debe completar todos los campos"
             tipo = "error"
-
         Else
-
             Dim Blnestado As Byte = 0
             Dim strconnectionString As String = WebConfigurationManager.ConnectionStrings("DBOIJ").ToString()
             Dim parqueoNegocios As New SP_Parqueo_Negocios(strconnectionString)

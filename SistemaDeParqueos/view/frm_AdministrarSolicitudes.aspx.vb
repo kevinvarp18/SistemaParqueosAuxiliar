@@ -194,7 +194,7 @@ Public Class frm_AdministrarSolicitudes
         horaF = datosSolicitud(4)
         fechaI = datosSolicitud(5)
         fechaF = datosSolicitud(6)
-        Me.idParqueo = idParqueo
+        idParqueo = idParqueo
         correo = datosSolicitud(7)
         accion = datosSolicitud(8)
         Session("fila") = datosSolicitud(0)
@@ -234,7 +234,7 @@ Public Class frm_AdministrarSolicitudes
         If (resultadoAccion = 1 Or accion.Equals("0")) Then
             titulo = "Correcto"
             tipo = "success"
-            Me.usuarioNegocios.envioCorreoSolicitud(asuntoCorreo, Me.correo, mensajeCorreo)
+            Me.usuarioNegocios.envioCorreoSolicitud(asuntoCorreo, correo, mensajeCorreo)
             tablaSolicitudes.Rows.RemoveAt(Integer.Parse(Session("fila")))
         Else
             titulo = "Error"

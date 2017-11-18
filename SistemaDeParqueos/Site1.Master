@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Sistema de Parqueos - OIJ</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Cognate Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 	Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
@@ -14,15 +14,15 @@
     <link href="public/css/style.css" rel='stylesheet' type='text/css' />
     <script src="../public/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="../public/js/bootstrap.js"></script>
-    <link href='//fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Cabin:400,700,500,600' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Pacifico|Prata' rel='stylesheet' type='text/css'>
-    <link rel="shortcut icon" type="images/png" href="public/images/placa.png">
+    <link href='//fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'/>
+    <link href='//fonts.googleapis.com/css?family=Cabin:400,700,500,600' rel='stylesheet' type='text/css'/>
+    <link href='//fonts.googleapis.com/css?family=Pacifico|Prata' rel='stylesheet' type='text/css'/>
+    <link rel="shortcut icon" type="images/png" href="public/images/placa.png"/>
     <script src="../public/js/main.js"></script>
-    <link href="public/css/animate.min.css" rel="stylesheet">
+    <link href="public/css/animate.min.css" rel="stylesheet"/>
     <script src="../public/js/wow.min.js"></script>
     <script src="../public/js/sweetalert2.all.min.js"></script>
-    <script type="text/javascript" language="javascript">
+    <script type="text/javascript">
         function muestraMensaje(titulo, mensaje, tipo) {
             swal(
               titulo,

@@ -32,13 +32,13 @@ Partial Public Class frm_BrindarAcceso
     Protected WithEvents lblSolicitante As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''dropSolicitante control.
+    '''DwnLstSolicitante control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents dropSolicitante As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents DwnLstSolicitante As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''lblFechaE control.
@@ -174,13 +174,4 @@ Partial Public Class frm_BrindarAcceso
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnSolicitar As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''lblMensaje control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblMensaje As Global.System.Web.UI.WebControls.Label
 End Class

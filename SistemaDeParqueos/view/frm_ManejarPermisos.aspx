@@ -21,7 +21,7 @@
                     <br />
                     <asp:Label ID="lblPermiso" runat="server" Text="Permiso:"></asp:Label>
                     <asp:DropDownList ID="DwnLstPermisos" runat="server" AutoPostBack="false"></asp:DropDownList><br />
-                    <asp:Label ID="lblUsuario" runat="server" Text="Usuario:"></asp:Label>
+                    <asp:Label ID="lblUsuario" runat="server" Text="Rol:"></asp:Label>
                     <asp:DropDownList ID="DwnLstRoles" runat="server" AutoPostBack="false"></asp:DropDownList><br />
                     <asp:Button ID="btnAgregar" runat="server" CssClass="multipleButton" OnClick="btnAgregar_Click" Text="Agregar" />
                     <asp:Button ID="btnEliminar" runat="server" CssClass="multipleButton" OnClick="btnEliminar_Click" Text="Eliminar" /><br />

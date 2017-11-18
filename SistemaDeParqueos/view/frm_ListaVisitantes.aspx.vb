@@ -21,7 +21,6 @@ Public Class frm_ListaVisitantes
         Next
 
         If (permitido) Then
-
             llenarTabla()
         Else
             Dim url As String = HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.AbsolutePath, "")
@@ -41,26 +40,26 @@ Public Class frm_ListaVisitantes
         For Each solicitudAct As Solicitud In solicitudes
             For rowCtr = 1 To rowCnt
                 Dim filaTabla As New TableRow()
-                Dim columnaNombre As New TableCell()
-                Dim columnaMarca As New TableCell()
-                Dim columnaPlaca As New TableCell()
-                Dim columnaModelo As New TableCell()
-                Dim columnaEspacio As New TableCell()
-                Dim columnaHoraE As New TableCell()
-                Dim columnaHoraS As New TableCell()
-                Dim columnaHypLnk As New TableCell()
+                Dim celdaNombre As New TableCell()
+                Dim celdaMarca As New TableCell()
+                Dim celdaPlaca As New TableCell()
+                Dim celdaModelo As New TableCell()
+                Dim celdaEspacioParqueo As New TableCell()
+                Dim celdaHoraE As New TableCell()
+                Dim celdaHoraS As New TableCell()
+                Dim celdaBotones As New TableCell()
 
-                columnaNombre.Text = solicitudAct.GstrFechaISG
-                columnaMarca.Text = solicitudAct.GstrMarcaSG
-                columnaPlaca.Text = solicitudAct.GstrPlacaSG
-                columnaModelo.Text = solicitudAct.GstrModeloSG
-                columnaEspacio.Text = solicitudAct.GintIdParqueoSG
-                columnaHoraE.Text = solicitudAct.GstrHoraISG
-                columnaHoraS.Text = solicitudAct.GstrHoraFSG
+                celdaNombre.Text = solicitudAct.GstrFechaISG
+                celdaMarca.Text = solicitudAct.GstrMarcaSG
+                celdaPlaca.Text = solicitudAct.GstrPlacaSG
+                celdaModelo.Text = solicitudAct.GstrModeloSG
+                celdaEspacioParqueo.Text = solicitudAct.GintIdParqueoSG
+                celdaHoraE.Text = solicitudAct.GstrHoraISG
+                celdaHoraS.Text = solicitudAct.GstrHoraFSG
 
                 Dim literalControl As New LiteralControl()
                 literalControl.Text = ""
-                columnaHypLnk.Controls.Add(literalControl)
+                celdaBotones.Controls.Add(literalControl)
 
                 Dim btnMarcarEntrada As New Button()
                 If (solicitudAct.GintIdSolicutudSG = 0) Then
@@ -90,17 +89,17 @@ Public Class frm_ListaVisitantes
                 btnMarcarSalida.Style("font-size") = "0.70em"
                 AddHandler btnMarcarSalida.Click, AddressOf Me.button_Click
 
-                columnaHypLnk.Controls.Add(btnMarcarEntrada)
-                columnaHypLnk.Controls.Add(btnMarcarSalida)
+                celdaBotones.Controls.Add(btnMarcarEntrada)
+                celdaBotones.Controls.Add(btnMarcarSalida)
 
-                filaTabla.Cells.Add(columnaNombre)
-                filaTabla.Cells.Add(columnaMarca)
-                filaTabla.Cells.Add(columnaPlaca)
-                filaTabla.Cells.Add(columnaModelo)
-                filaTabla.Cells.Add(columnaEspacio)
-                filaTabla.Cells.Add(columnaHoraE)
-                filaTabla.Cells.Add(columnaHoraS)
-                filaTabla.Cells.Add(columnaHypLnk)
+                filaTabla.Cells.Add(celdaNombre)
+                filaTabla.Cells.Add(celdaMarca)
+                filaTabla.Cells.Add(celdaPlaca)
+                filaTabla.Cells.Add(celdaModelo)
+                filaTabla.Cells.Add(celdaEspacioParqueo)
+                filaTabla.Cells.Add(celdaHoraE)
+                filaTabla.Cells.Add(celdaHoraS)
+                filaTabla.Cells.Add(celdaBotones)
                 tabla.Rows.Add(filaTabla)
 
                 contador = contador + 1

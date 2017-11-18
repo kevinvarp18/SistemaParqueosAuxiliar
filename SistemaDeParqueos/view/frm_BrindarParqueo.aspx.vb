@@ -22,18 +22,18 @@ Public Class frm_BrindarAcceso
             Dim usuariosNegocios As New SP_Usuario_Negocios(connectionString)
             If IsPostBack Then
                 Dim correos As LinkedList(Of Usuario) = usuariosNegocios.obtenerCorreoUsuariosVisitantes()
-                Me.gstrUsuarioSelecion = dropSolicitante.SelectedItem.ToString()
+                Me.gstrUsuarioSelecion = DwnLstSolicitante.SelectedItem.ToString()
                 For Each usuarioActual As Usuario In correos
                     If Me.gstrUsuarioSelecion.Equals("Correo Usuario: " + usuarioActual.gstrCorreo.ToString()) Then
                         Me.gstrUsuarioSelecion = usuarioActual.gstrCorreo
                     End If
                 Next
             Else
-                dropSolicitante.Items.Clear()
-                dropSolicitante.Items.Add("Sin Seleccionar")
+                DwnLstSolicitante.Items.Clear()
+                DwnLstSolicitante.Items.Add("Seleccione una opción")
                 Dim correos As LinkedList(Of Usuario) = usuariosNegocios.obtenerCorreoUsuariosVisitantes()
                 For Each usuarioActual As Usuario In correos
-                    dropSolicitante.Items.Add("Correo Usuario: " + usuarioActual.gstrCorreo.ToString())
+                    DwnLstSolicitante.Items.Add("Correo Usuario: " + usuarioActual.gstrCorreo.ToString())
                 Next
             End If
         Else
@@ -45,17 +45,11 @@ Public Class frm_BrindarAcceso
     End Sub
 
     Protected Sub btnSolicitar_Click(sender As Object, e As EventArgs) Handles btnSolicitar.Click
-        Dim titulo, mensaje, tipo As String
-        Dim tbSolicitante_ As String = Trim(dropSolicitante.SelectedItem.ToString())
-        Dim tbPlaca_ As String = Trim(tbPlaca.Text)
-        Dim tbMarca_ As String = Trim(tbMarca.Text)
-        Dim tbModelo_ As String = Trim(tbModelo.Text)
+        Dim titulo As String = "ERROR"
+        Dim tipo As String = "error"
+        Dim mensaje As String = "Debe completar todos los campos"
 
-
-        If (tbSolicitante_.Equals("") Or tbPlaca_.Equals("") Or tbMarca_.Equals("") Or tbModelo_.Equals("")) Then
-            titulo = "ERROR"
-            mensaje = "Debe completar todos los campos"
-            tipo = "error"
+        If (DwnLstSolicitante.SelectedItem.ToString().Equals("") Or tbPlaca.Text.Equals("") Or tbMarca.Text.Equals("") Or tbModelo.Text.Equals("")) Then
         Else
             Dim strconnectionString As String = WebConfigurationManager.ConnectionStrings("DBOIJ").ToString()
             Dim solicitudNegocios As New SP_Solicitud_Parqueo_Negocios(strconnectionString)
@@ -63,16 +57,12 @@ Public Class frm_BrindarAcceso
             Dim fechaf As DateTime = Convert.ToDateTime(tbFechaS.Text)
 
             If tbFechaE.Text <> "" AndAlso tbHoraE.Text <> "" Then
-                'Do stuff
                 solicitudNegocios.insertarSolicitud(gstrUsuarioSelecion, New Solicitud(0, 0, 0, tbHoraE.Text, tbHoraS.Text, tbPlaca.Text, tbModelo.Text, tbMarca.Text, fechai.ToString("dd/MM/yyyy"), fechaf.ToString("dd/MM/yyyy")))
                 titulo = "Correcto"
                 mensaje = "Acceso brindado exitosamente"
                 tipo = "success"
-            Else
-                titulo = "ERROR"
-                mensaje = "Debe completar todos los campos"
-                tipo = "error"
             End If
+
             tbHoraE.Text = ""
             tbHoraS.Text = ""
             tbPlaca.Text = ""

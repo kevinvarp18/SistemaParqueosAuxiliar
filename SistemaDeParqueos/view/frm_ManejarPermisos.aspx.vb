@@ -16,8 +16,6 @@ Public Class frm_ManejarPermisos
             ScriptManager.RegisterClientScriptInclude(Me, Me.GetType(), "frm_ManejarPermisos", ResolveUrl("~") + "public/js/" + "script.js")
 
             If Not IsPostBack Then
-                llenarTabla()
-
                 DwnLstPermisos.Items.Add("Seleccione una opción")
                 For Each permiso As Permiso In Me.usuarioNegocios.ObtenerPermisos()
                     DwnLstPermisos.Items.Add(permiso.GstrTipo1.ToString)
@@ -33,8 +31,8 @@ Public Class frm_ManejarPermisos
             Response.BufferOutput = True
             Response.Redirect(url & Convert.ToString("/view/frm_index.aspx"))
         End If
+        llenarTabla()
     End Sub
-
     Public Sub llenarTabla()
         Dim rowCnt As Integer
         Dim rowCtr As Integer
@@ -70,72 +68,55 @@ Public Class frm_ManejarPermisos
             Next
         Next
     End Sub
-
-
     Protected Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
-        Dim titulo, mensaje, tipo As String
+        Dim titulo As String = "ERROR"
+        Dim mensaje As String
+        Dim tipo As String = "error"
 
         If (DwnLstPermisos.SelectedItem.ToString().Equals("Seleccione una opción") Or DwnLstRoles.SelectedItem.ToString().Equals("Seleccione una opción")) Then
-            titulo = "ERROR"
             mensaje = "Debe completar todos los campos"
-            tipo = "error"
         Else
-
             Dim idPermiso As Integer = 0
             Dim rol As String = ""
 
             idPermiso = Me.establecerPermiso(DwnLstPermisos.SelectedItem.ToString())
             rol = establecerRol(DwnLstRoles.SelectedItem.ToString())
 
-
             If Me.usuarioNegocios.insertarPermisoRol(idPermiso, rol) Then
-                titulo = "Correcto"
-                mensaje = "Se ha insertado exitosamente"
+                titulo = "CORRECTO"
+                mensaje = "El usuario " + DwnLstRoles.SelectedItem.ToString() + " ahora tiene permitido acceder a " + DwnLstPermisos.SelectedItem.ToString()
                 tipo = "success"
             Else
-                titulo = "Advertencia"
-                mensaje = "La relación entre el Permiso y el Rol ya existe"
-                tipo = "warning"
+                mensaje = "La relación entre el permiso y el rol ya existe"
             End If
-
-
         End If
 
         ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "ScriptManager2", "muestraMensaje(""" + titulo + """,""" + mensaje + """,""" + tipo + """);", True)
     End Sub
-
     Protected Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
-        Dim titulo, mensaje, tipo As String
+        Dim titulo As String = "ERROR"
+        Dim mensaje As String
+        Dim tipo As String = "error"
 
         If (DwnLstPermisos.SelectedItem.ToString().Equals("Seleccione una opción") Or DwnLstRoles.SelectedItem.ToString().Equals("Seleccione una opción")) Then
-            titulo = "ERROR"
             mensaje = "Debe completar todos los campos"
-            tipo = "error"
         Else
-
             Dim idPermiso As Integer = 0
             Dim rol As String = ""
-
             idPermiso = Me.establecerPermiso(DwnLstPermisos.SelectedItem.ToString())
             rol = establecerRol(DwnLstRoles.SelectedItem.ToString())
-
 
             If Me.usuarioNegocios.eliminarPermisoRol(idPermiso, rol) Then
                 titulo = "Correcto"
-                mensaje = "Se ha eliminado exitosamente"
+                mensaje = "El permiso se ha eliminado exitosamente para el usuario " + DwnLstRoles.SelectedItem.ToString()
                 tipo = "success"
             Else
-                titulo = "Error"
                 mensaje = "No se ha podido eliminar la relación"
-                tipo = "error"
             End If
-
         End If
 
         ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "ScriptManager2", "muestraMensaje(""" + titulo + """,""" + mensaje + """,""" + tipo + """);", True)
-
     End Sub
-
     Public Function establecerPermiso(permiso As String) As Integer
         If (permiso.Equals("frm_AdministrarParqueo")) Then
             Return 4
@@ -159,7 +140,6 @@ Public Class frm_ManejarPermisos
 
         Return 0
     End Function
-
     Public Function establecerRol(rol As String) As String
         If (rol.Equals("Administrador")) Then
             Return "a"
@@ -171,5 +151,4 @@ Public Class frm_ManejarPermisos
 
         Return ""
     End Function
-
 End Class

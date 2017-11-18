@@ -11,7 +11,7 @@
                     <h3>Registrar Usuario</h3>
                     <asp:Label ID="lblUsuario" runat="server" Text="Tipo Usuario:"></asp:Label>
                     <asp:DropDownList ID="DwnLstTipoUsuario" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DwnLstTipoUsuario_SelectedIndexChanged"></asp:DropDownList><br />
-                    <asp:Label ID="lblTipo" runat="server" Text="Tipo Identificacion:"></asp:Label>
+                    <asp:Label ID="lblTipo" runat="server" Text="Tipo ID:"></asp:Label>
                     <asp:DropDownList ID="DwnLstTipoIdentificacion" runat="server" AutoPostBack="false"></asp:DropDownList><br />
                     <asp:Label ID="lblIdentificacion" runat="server" Text="Identificacion:"></asp:Label>
                     <asp:TextBox ID="tbIdentificacion" type="text" runat="server"></asp:TextBox><br />
@@ -27,14 +27,22 @@
                         <ContentTemplate>
                             <asp:Label ID="lblUbicacion" runat="server" Text="Ubicación:"></asp:Label>
                             <asp:TextBox ID="tbUbicacion" type="text" runat="server"></asp:TextBox><br />
-
                             <asp:Label ID="lblTelefono" runat="server" Text="Teléfono:"></asp:Label>
                             <asp:TextBox ID="tbTelefono" type="text" runat="server"></asp:TextBox><br />
-
                             <asp:Label ID="lblProcedencia1" runat="server" Text="Procedencia:"></asp:Label>
                             <asp:DropDownList ID="DwnLstProcedencia" runat="server" AutoPostBack="true"></asp:DropDownList><br />
-                            <asp:Label ID="lblProcedencia2" runat="server" Text="Nombre Dept:" Visible="false"></asp:Label>
-                            <asp:TextBox ID="tbProcedencia" type="text" runat="server" Visible="false"></asp:TextBox><br />
+                            <asp:UpdatePanel ID="UpdatePanel3" runat="server" Visible="false">
+                                <ContentTemplate>
+                                    <asp:Label ID="lblDepartamento" runat="server" Text="Nombre Dept:"></asp:Label>
+                                    <asp:DropDownList ID="DwnLstDepartamento" type="text" runat="server"></asp:DropDownList><br />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                            <asp:UpdatePanel ID="UpdatePanel4" runat="server" Visible="false">
+                                <ContentTemplate>
+                                    <asp:Label ID="lblInstitucion" runat="server" Text="Institucion:"></asp:Label>
+                                    <asp:TextBox ID="tbInstitucion" type="text" runat="server"></asp:TextBox><br />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </ContentTemplate>
                     </asp:UpdatePanel>
                     <asp:Button ID="btnRegistrar" runat="server" CssClass="singleButton" OnClick="btnRegistrar_Click" Text="Registrar" /><br />
